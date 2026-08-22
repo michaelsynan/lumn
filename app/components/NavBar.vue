@@ -1,0 +1,106 @@
+<template>
+  <nav
+    class="bg-[#0b0a0d] border-b border-[#28232f] flex h-[88px] items-center justify-between px-4 sm:px-8 lg:px-20 w-full fixed top-0 left-0 z-50 transition-transform duration-300"
+    :class="isVisible ? 'translate-y-0' : '-translate-y-full'"
+  >
+    <!-- Logo -->
+    <NuxtLink
+      to="/"
+      class="flex gap-2 sm:gap-4 items-center"
+    >
+      <img
+        src="/nav-logo.png"
+        alt="LUMN Logo"
+        class="h-[57px] w-6 object-cover"
+      >
+      <span class="font-['Cinzel'] text-2xl text-white">Lumn</span>
+    </NuxtLink>
+
+    <!-- Nav Links -->
+    <div class="hidden md:flex gap-6 lg:gap-10 items-center text-[#a5a2aa] text-sm font-medium tracking-[0.5px]">
+      <NuxtLink
+        to="/shop"
+        class="hover:text-white transition-colors"
+      >
+        Shop
+      </NuxtLink>
+      <NuxtLink
+        to="/our-story"
+        class="hover:text-white transition-colors"
+      >
+        Our Story
+      </NuxtLink>
+      <NuxtLink
+        to="/aurora-protocol"
+        class="hover:text-white transition-colors"
+      >
+        Aurora Protocol
+      </NuxtLink>
+      <NuxtLink
+        to="/contact"
+        class="hover:text-white transition-colors"
+      >
+        Contact
+      </NuxtLink>
+    </div>
+
+    <!-- Cart -->
+    <div class="flex gap-2 items-center">
+      <button class="cursor-pointer hover:opacity-80 transition-opacity">
+        <UIcon
+          name="i-mdi-shopping-cart"
+          class="text-[#d68e49] text-[24px]"
+        />
+      </button>
+    </div>
+  </nav>
+</template>
+
+<script
+  setup
+  lang="ts"
+>
+const isVisible = ref(true)
+let lastScrollY = 0
+let ticking = false
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY
+
+  // If at the top of page, always show navbar
+  if (currentScrollY < 10) {
+    isVisible.value = true
+    lastScrollY = currentScrollY
+    return
+  }
+
+  // Scrolling down - hide navbar
+  if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    isVisible.value = false
+  }
+  // Scrolling up - show navbar
+  else if (currentScrollY < lastScrollY) {
+    isVisible.value = true
+  }
+
+  lastScrollY = currentScrollY
+}
+
+const onScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      handleScroll()
+      ticking = false
+    })
+    ticking = true
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+})
+</script>

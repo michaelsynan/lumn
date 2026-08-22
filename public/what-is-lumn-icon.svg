@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="600" height="8" viewBox="0 0 600 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="divider-row">
+<line id="Line" x1="152" y1="3.5" x2="272" y2="3.5" stroke="#D68E49" stroke-opacity="0.4"/>
+<g id="glyph">
+<rect x="296" width="8" height="8" rx="4" fill="#D68E49"/>
+</g>
+<line id="Line_2" x1="328" y1="3.5" x2="448" y2="3.5" stroke="#D68E49" stroke-opacity="0.4"/>
+</g>
+</svg>
