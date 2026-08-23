@@ -45,7 +45,13 @@
     </div>
 
     <!-- Cart -->
-    <div class="flex gap-2 items-center">
+    <div class="flex gap-8 items-center">
+      <button class="cursor-pointer hover:opacity-80 transition-opacity">
+        <UIcon
+          name="i-mdi-account"
+          class="text-[#d68e49] text-[24px]"
+        />
+      </button>
       <button class="cursor-pointer hover:opacity-80 transition-opacity">
         <UIcon
           name="i-mdi-shopping-cart"

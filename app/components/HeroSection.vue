@@ -14,15 +14,15 @@
 
     <!-- Hero Content -->
     <div
-      class="absolute flex flex-col lg:flex-row h-auto lg:h-[732px] items-center justify-between left-0 px-4 sm:px-8 lg:px-20 py-8 lg:py-16 top-0 w-full gap-8 lg:gap-0"
+      class="absolute flex flex-col lg:flex-row h-auto lg:h-[732px] items-center justify-between left-1/2 -translate-x-1/2 px-4 sm:px-8 lg:px-12 py-8 lg:py-16 top-0 w-full max-w-7xl gap-8 lg:gap-0"
     >
       <!-- Left Content -->
       <div class="flex flex-col gap-6 lg:gap-9 items-start w-full lg:w-[640px]">
         <!-- Toggle -->
         <div class="bg-[#0f0f0f] border border-[#2b2b2b] flex items-center overflow-hidden p-[3px] rounded-full">
           <button
-            class="cursor-pointer flex gap-1.5 items-center px-3.5 py-1.5 rounded-full transition-all duration-[400ms] ease-in-out"
-            :class="activeTime === 'evening' ? 'bg-[rgba(214,142,73,0.2)] border border-[#d68e49]' : ''"
+            class="cursor-pointer flex gap-1.5 items-center px-3.5 py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out"
+            :class="activeTime === 'evening' ? 'bg-[rgba(214,142,73,0.2)] border-[#d68e49]' : 'border-transparent'"
             @mouseenter="setActiveTime('evening')"
           >
             <UIcon
@@ -38,8 +38,8 @@
             </span>
           </button>
           <button
-            class="cursor-pointer flex gap-1.5 items-center px-3.5 py-1.5 rounded-full transition-all duration-[400ms] ease-in-out"
-            :class="activeTime === 'morning' ? 'bg-[rgba(214,142,73,0.2)] border border-[#d68e49]' : ''"
+            class="cursor-pointer flex gap-1.5 items-center px-3.5 py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out"
+            :class="activeTime === 'morning' ? 'bg-[rgba(214,142,73,0.2)] border-[#d68e49]' : 'border-transparent'"
             @mouseenter="setActiveTime('morning')"
           >
             <UIcon
@@ -75,7 +75,7 @@
           >
             <h1
               :key="activeTime + '-title'"
-              class="font-['Cinzel'] text-[#f4f3f5] text-[36px] sm:text-[48px] lg:text-[64px] leading-[1.1] tracking-[-1.5px]"
+              class="font-['Cormorant_Garamond'] text-[#f4f3f5] text-[36px] sm:text-[48px] lg:text-[64px] leading-[1.1] tracking-[-1.5px]"
             >
               <span>{{ heroContent[activeTime].titlePart1 }}</span>
               <span class="text-[#d68e49]">{{ heroContent[activeTime].titlePart2 }}</span>

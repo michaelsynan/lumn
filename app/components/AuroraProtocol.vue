@@ -25,7 +25,7 @@
 
       <!-- Title -->
       <h2
-        class="font-['Cinzel'] text-[#f4f3f5] text-[36px] sm:text-[48px] lg:text-[64px] text-center leading-[1.05] tracking-[-1px]"
+        class="font-['Cormorant_Garamond'] text-[#f4f3f5] text-[36px] sm:text-[48px] lg:text-[64px] text-center leading-[1.05] tracking-[-1px]"
       >
         Aurora Protocol
       </h2>

@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-[#0b0a0d] flex flex-col gap-20 pb-12 pt-12 sm:pt-24 px-4 sm:px-8 lg:px-20 w-full">
+  <footer class="bg-[#0b0a0d] border-t border-[#28232f] flex flex-col gap-20 pb-12 pt-12 sm:pt-24 px-4 sm:px-8 lg:px-20 w-full">
     <!-- Footer Upper -->
     <div class="flex flex-col md:flex-row items-start justify-between w-full gap-8 md:gap-4">
       <!-- Brand Column -->

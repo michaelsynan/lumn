@@ -1,9 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Geist:wght@300;400;500;600;700&display=swap");
-
 @theme static {
   --font-sans: "Geist", sans-serif;
 
@@ -29,4 +26,20 @@ body {
   font-family: "Geist", sans-serif;
   background: #0b0a0d;
   color: #f4f3f5;
+}
+
+/* Page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }

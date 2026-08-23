@@ -28,7 +28,10 @@ useSeoMeta({
     <NavBar />
 
     <main class="pt-[88px]">
-      <NuxtPage />
+      <NuxtPage :transition="{
+        name: 'page',
+        mode: 'out-in'
+      }" />
     </main>
 
     <FooterSection />
