@@ -14,20 +14,20 @@
 
     <!-- Hero Content -->
     <div
-      class="absolute flex flex-col lg:flex-row h-auto lg:h-[732px] items-center justify-between left-1/2 -translate-x-1/2 px-4 sm:px-8 lg:px-12 py-8 lg:py-16 top-0 w-full max-w-7xl gap-8 lg:gap-0"
+      class="relative flex flex-col lg:flex-row h-auto min-h-[600px] lg:h-auto items-center justify-between px-4 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32 w-full max-w-7xl gap-8 lg:gap-12 mx-auto"
     >
       <!-- Left Content -->
-      <div class="flex flex-col gap-6 lg:gap-9 items-start w-full lg:w-[640px]">
+      <div class="flex flex-col gap-6 lg:gap-9 items-start w-full lg:flex-1 lg:max-w-[640px]">
         <!-- Toggle -->
-        <div class="bg-[#0f0f0f] border border-[#2b2b2b] flex items-center overflow-hidden p-[3px] rounded-full">
+        <div class="bg-[#0f0f0f] border border-[#2b2b2b] flex items-center overflow-hidden p-[3px] rounded-full w-full sm:w-auto">
           <button
-            class="cursor-pointer flex gap-1.5 items-center px-3.5 py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out"
+            class="cursor-pointer flex gap-1.5 items-center justify-center px-3.5 py-2 sm:py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out flex-1 sm:flex-initial"
             :class="activeTime === 'evening' ? 'bg-[rgba(214,142,73,0.2)] border-[#d68e49]' : 'border-transparent'"
             @mouseenter="setActiveTime('evening')"
           >
             <UIcon
               name="i-mdi-moon-waning-crescent"
-              class="size-3.5 transition-colors duration-[400ms] ease-in-out"
+              class="size-4 sm:size-3.5 transition-colors duration-[400ms] ease-in-out"
               :class="activeTime === 'evening' ? 'text-[#f4f3f5]' : 'text-[#8c8791]'"
             />
             <span
@@ -38,17 +38,17 @@
             </span>
           </button>
           <button
-            class="cursor-pointer flex gap-1.5 items-center px-3.5 py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out"
+            class="cursor-pointer flex gap-1.5 items-center justify-center px-3.5 py-2 sm:py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out flex-1 sm:flex-initial"
             :class="activeTime === 'morning' ? 'bg-[rgba(214,142,73,0.2)] border-[#d68e49]' : 'border-transparent'"
             @mouseenter="setActiveTime('morning')"
           >
             <UIcon
               name="i-mdi-white-balance-sunny"
-              class="size-3.5 transition-colors duration-[400ms] ease-in-out"
+              class="size-4 sm:size-3.5 transition-colors duration-[400ms] ease-in-out"
               :class="activeTime === 'morning' ? 'text-[#f4f3f5]' : 'text-[#8c8791]'"
             />
             <span
-              class="text-[11px] tracking-[0.22px] transition-all duration-[400ms] ease-in-out"
+              class="text-xs sm:text-[11px] tracking-[0.22px] transition-all duration-[400ms] ease-in-out"
               :class="activeTime === 'morning' ? 'text-[#f4f3f5] font-semibold' : 'text-[#8c8791]'"
             >
               Morning
@@ -96,7 +96,7 @@
         </Transition>
 
         <!-- Actions -->
-        <div class="flex gap-4 items-center">
+        <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center w-full sm:w-auto">
           <FancyButton />
 
           <NuxtLink
@@ -111,7 +111,8 @@
 
       <!-- Right Visual -->
       <div
-        class="hidden lg:flex border border-[#28232f] flex-col h-[520px] overflow-hidden relative rounded-3xl w-[480px] bg-[#0b0b0f]"
+        class="order-first lg:order-none flex border border-[#28232f] flex-col h-auto lg:h-[520px] overflow-hidden relative rounded-3xl w-full max-w-[480px] mx-auto lg:mx-0 lg:w-[480px] flex-shrink-0 bg-[#0b0b0f]"
+        :style="{ aspectRatio: heroContent[activeTime].aspectRatio }"
       >
         <!-- Morning Image -->
         <img
@@ -159,7 +160,8 @@ const heroContent = {
     description: 'Premium, mushroom-infused cold brew coffee. Smooth and rich with hints of chocolate. Functional beverages without the jitters.',
     badge: 'COMING SOON',
     image: '/hero-morning.png',
-    imageClass: 'absolute h-[123.59%] left-0 top-[-22.37%] w-full object-cover'
+    imageClass: 'absolute h-full left-0 top-0 w-full object-cover lg:h-[123.59%] lg:top-[-22.37%]',
+    aspectRatio: '956 / 1280'
   },
   evening: {
     subtitle: 'Functional Hard Cider Ritual',
@@ -168,7 +170,8 @@ const heroContent = {
     description: 'Mango hard cider. Functional mushrooms. No mushroom taste.<br>Small-batch crafted. 7% ABV.',
     badge: '7% Adaptogens',
     image: '/hero-evening.png',
-    imageClass: 'absolute inset-0 w-full h-full object-cover rounded-3xl'
+    imageClass: 'absolute inset-0 w-full h-full object-cover rounded-3xl',
+    aspectRatio: '1122 / 1402'
   }
 }
 

@@ -103,7 +103,7 @@
             <button
               v-else
               key="add-button"
-              class="cursor-pointer bg-white w-full h-full flex items-center justify-center rounded-xl hover:bg-gray-100 transition-all duration-200 absolute inset-0"
+              class="cursor-pointer bg-white w-full h-full flex items-center justify-center rounded-xl hover:bg-gray-50 transition-all duration-200 absolute inset-0"
               @click="addToCart"
             >
               <span class="text-[#0b0b0f] text-sm font-bold">Add to Cart</span>

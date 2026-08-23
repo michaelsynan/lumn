@@ -16,7 +16,7 @@
       <span class="font-['Cinzel'] text-2xl text-white">Lumn</span>
     </NuxtLink>
 
-    <!-- Nav Links -->
+    <!-- Nav Links (Desktop) -->
     <div class="hidden md:flex gap-6 lg:gap-10 items-center text-[#a5a2aa] text-sm font-medium tracking-[0.5px]">
       <NuxtLink
         to="/shop"
@@ -44,8 +44,8 @@
       </NuxtLink>
     </div>
 
-    <!-- Cart -->
-    <div class="flex gap-8 items-center">
+    <!-- Right Actions -->
+    <div class="flex gap-4 sm:gap-8 items-center">
       <button class="cursor-pointer hover:opacity-80 transition-opacity">
         <UIcon
           name="i-mdi-account"
@@ -58,8 +58,57 @@
           class="text-[#d68e49] text-[24px]"
         />
       </button>
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden cursor-pointer hover:opacity-80 transition-opacity"
+        @click="mobileMenuOpen = !mobileMenuOpen"
+      >
+        <UIcon
+          :name="mobileMenuOpen ? 'i-mdi-close' : 'i-mdi-menu'"
+          class="text-[#d68e49] text-[28px]"
+        />
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile Menu -->
+  <Transition name="mobile-menu">
+    <div
+      v-if="mobileMenuOpen"
+      class="md:hidden fixed top-[88px] left-0 w-full bg-[#0b0a0d] border-b border-[#28232f] z-40 overflow-hidden"
+    >
+      <div class="flex flex-col px-4 py-6 gap-4">
+        <NuxtLink
+          to="/shop"
+          class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
+          @click="mobileMenuOpen = false"
+        >
+          Shop
+        </NuxtLink>
+        <NuxtLink
+          to="/our-story"
+          class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
+          @click="mobileMenuOpen = false"
+        >
+          Our Story
+        </NuxtLink>
+        <NuxtLink
+          to="/aurora-protocol"
+          class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
+          @click="mobileMenuOpen = false"
+        >
+          Aurora Protocol
+        </NuxtLink>
+        <NuxtLink
+          to="/contact"
+          class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
+          @click="mobileMenuOpen = false"
+        >
+          Contact
+        </NuxtLink>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <script
@@ -67,6 +116,7 @@
   lang="ts"
 >
 const isVisible = ref(true)
+const mobileMenuOpen = ref(false)
 let lastScrollY = 0
 let ticking = false
 
@@ -110,3 +160,16 @@ onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
 </script>
+
+<style scoped>
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>

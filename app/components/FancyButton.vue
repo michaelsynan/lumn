@@ -1,5 +1,6 @@
 <template>
-  <button
+  <NuxtLink
+    to="/shop"
     class="cursor-pointer bg-[#1e1e1e] border border-[#d68e49] flex items-center justify-between p-1 relative rounded-full overflow-visible hover:bg-[#d68e49]/10 transition-colors duration-300 w-[186px] h-[46px]"
     @mouseenter="handleHover(true)"
     @mouseleave="handleHover(false)"
@@ -56,7 +57,7 @@
         Get Lumn
       </span>
     </div>
-  </button>
+  </NuxtLink>
 </template>
 
 <script
