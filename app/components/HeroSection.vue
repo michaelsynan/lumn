@@ -19,7 +19,7 @@
       <!-- Left Content -->
       <div class="flex flex-col gap-6 lg:gap-9 items-start w-full lg:flex-1 lg:max-w-[640px]">
         <!-- Toggle -->
-        <div class="bg-[#0f0f0f] border border-[#2b2b2b] flex items-center overflow-hidden p-[3px] rounded-full w-full sm:w-auto">
+        <!-- <div class="bg-[#0f0f0f] border border-[#2b2b2b] flex items-center overflow-hidden p-[3px] rounded-full w-full sm:w-auto">
           <button
             class="cursor-pointer flex gap-1.5 items-center justify-center px-3.5 py-2 sm:py-1.5 rounded-full border transition-all duration-[400ms] ease-in-out flex-1 sm:flex-initial"
             :class="activeTime === 'evening' ? 'bg-[rgba(214,142,73,0.2)] border-[#d68e49]' : 'border-transparent'"
@@ -54,7 +54,7 @@
               Morning
             </span>
           </button>
-        </div>
+        </div> -->
 
         <!-- Title Stack -->
         <div class="flex flex-col gap-4 w-full">

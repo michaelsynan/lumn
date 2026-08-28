@@ -2,8 +2,10 @@ f<template>
   <div>
     <HeroSection />
     <WhatIsLumn />
-    <ProductSelection />
-    <LumnDifference />
+    <HomeGood />
+    <!-- <ProductSelection /> -->
+    <!-- <LumnDifference /> -->
+    <LumnDifference2 />
     <AuroraProtocol />
   </div>
 </template>

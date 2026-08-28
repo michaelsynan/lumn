@@ -1,5 +1,7 @@
 <template>
-  <footer class="bg-[#0b0a0d] border-t border-[#28232f] flex flex-col gap-20 pb-12 pt-12 sm:pt-24 px-4 sm:px-8 lg:px-20 w-full">
+  <footer
+    class="bg-[#0b0a0d] border-t border-[#28232f] flex flex-col gap-20 pb-12 pt-12 sm:pt-24 px-4 sm:px-8 lg:px-20 w-full"
+  >
     <!-- Footer Upper -->
     <div class="flex flex-col md:flex-row items-start justify-between w-full gap-8 md:gap-4">
       <!-- Brand Column -->
@@ -20,17 +22,17 @@
         <h3 class="text-[#d68e49] text-xs font-bold tracking-[1px] uppercase">
           Shop
         </h3>
-        <NuxtLink
+        <!-- <NuxtLink
           to="/shop/hard-cider"
           class="text-[#a5a2aa] text-sm hover:text-white transition-colors"
         >
           LUMN Hard Cider
-        </NuxtLink>
+        </NuxtLink> -->
         <NuxtLink
-          to="/shop/cold-brew"
+          to="/functional-beverages/cold-brew"
           class="text-[#a5a2aa] text-sm hover:text-white transition-colors"
         >
-          Cold Brew (Coming Soon)
+          Cold Brew
         </NuxtLink>
       </div>
 
@@ -58,11 +60,17 @@
           The LUMN Difference
         </NuxtLink>
         <NuxtLink
+          to="/wholesale-retailers"
+          class="text-[#a5a2aa] text-sm hover:text-white transition-colors"
+        >
+          Wholesale & Retailers
+        </NuxtLink>
+        <!-- <NuxtLink
           to="/blog"
           class="text-[#a5a2aa] text-sm hover:text-white transition-colors"
         >
           Blog
-        </NuxtLink>
+        </NuxtLink> -->
       </div>
 
       <!-- Newsletter Column -->

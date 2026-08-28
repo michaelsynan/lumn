@@ -10,7 +10,7 @@
     />
 
     <div
-      class="relative z-10 flex flex-col items-center px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-32 max-w-7xl mx-auto"
+      class="relative z-10 flex flex-col items-center px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-38 max-w-7xl mx-auto"
     >
       <!-- Badge -->
       <div

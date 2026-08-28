@@ -19,10 +19,10 @@
     <!-- Nav Links (Desktop) -->
     <div class="hidden md:flex gap-6 lg:gap-10 items-center text-[#a5a2aa] text-sm font-medium tracking-[0.5px]">
       <NuxtLink
-        to="/shop"
+        to="/functional-beverages/cold-brew"
         class="hover:text-white transition-colors"
       >
-        Shop
+        Cold Brew
       </NuxtLink>
       <NuxtLink
         to="/our-story"
@@ -37,27 +37,28 @@
         Aurora Protocol
       </NuxtLink>
       <NuxtLink
+        to="/wholesale-retailers"
+        class="hover:text-white transition-colors"
+      >
+        Wholesale & Retailers
+      </NuxtLink>
+      <NuxtLink
         to="/contact"
         class="hover:text-white transition-colors"
       >
         Contact
       </NuxtLink>
+
     </div>
 
     <!-- Right Actions -->
     <div class="flex gap-4 sm:gap-8 items-center">
-      <button class="cursor-pointer hover:opacity-80 transition-opacity">
-        <UIcon
-          name="i-mdi-account"
-          class="text-[#d68e49] text-[24px]"
-        />
-      </button>
-      <button class="cursor-pointer hover:opacity-80 transition-opacity">
-        <UIcon
-          name="i-mdi-shopping-cart"
-          class="text-[#d68e49] text-[24px]"
-        />
-      </button>
+      <NuxtLink
+        to="/find-lumn"
+        class="hidden md:block bg-[#1e1e1e] border border-[#d68e49] hover:bg-[#d68e49]/10 text-white px-6 py-2.5 rounded-full font-['Cinzel'] text-sm tracking-[1.08px] transition-colors duration-300"
+      >
+        Find LUMN
+      </NuxtLink>
       <!-- Mobile Menu Button -->
       <button
         class="md:hidden cursor-pointer hover:opacity-80 transition-opacity"
@@ -79,11 +80,11 @@
     >
       <div class="flex flex-col px-4 py-6 gap-4">
         <NuxtLink
-          to="/shop"
+          to="/functional-beverages/cold-brew"
           class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
           @click="mobileMenuOpen = false"
         >
-          Shop
+          Cold Brew
         </NuxtLink>
         <NuxtLink
           to="/our-story"
@@ -100,11 +101,25 @@
           Aurora Protocol
         </NuxtLink>
         <NuxtLink
+          to="/wholesale-retailers"
+          class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
+          @click="mobileMenuOpen = false"
+        >
+          Wholesale & Retailers
+        </NuxtLink>
+        <NuxtLink
           to="/contact"
           class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
           @click="mobileMenuOpen = false"
         >
           Contact
+        </NuxtLink>
+        <NuxtLink
+          to="/find-lumn"
+          class="bg-[#1e1e1e] border border-[#d68e49] hover:bg-[#d68e49]/10 text-white px-6 py-3 rounded-full font-['Cinzel'] text-base tracking-[1.08px] transition-colors duration-300 text-center mt-2"
+          @click="mobileMenuOpen = false"
+        >
+          Find LUMN
         </NuxtLink>
       </div>
     </div>

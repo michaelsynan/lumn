@@ -1,4 +1,7 @@
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+>
 useSeoMeta({
   title: 'Our Story - LUMN',
   description: 'Learn about the story behind LUMN and our mission to create premium functional beverages.'
@@ -10,7 +13,7 @@ useSeoMeta({
     <PageHero
       badge="Our Journey"
       title="OUR STORY"
-      description="Discover how LUMN came to be and the passion behind every bottle we create."
+      description="Discover how LUMN came to be and the love we put into making very bottle."
     />
   </div>
 </template>

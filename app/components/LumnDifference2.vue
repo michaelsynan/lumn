@@ -30,9 +30,9 @@
             <h3 class="font-['Cormorant_Garamond'] font-medium text-[#f4f3f5] text-[28px]">
               Real Beverages
             </h3>
-            <p class="font-semibold text-[#d68e49] text-xs tracking-[1px] uppercase">
+            <!-- <p class="font-semibold text-[#d68e49] text-xs tracking-[1px] uppercase">
               Flavor First
-            </p>
+            </p> -->
           </div>
           <p class="text-[#a5a2aa] text-sm leading-[1.6]">
             Crafted for flavor first — never as an afterthought.
@@ -52,9 +52,9 @@
             <h3 class="font-['Cormorant_Garamond'] font-medium text-[#f4f3f5] text-[28px]">
               Functional Mushrooms
             </h3>
-            <p class="font-semibold text-[#d68e49] text-xs tracking-[1px] uppercase">
+            <!-- <p class="font-semibold text-[#d68e49] text-xs tracking-[1px] uppercase">
               Thoughtfully Selected
-            </p>
+            </p> -->
           </div>
           <p class="text-[#a5a2aa] text-sm leading-[1.6]">
             Thoughtfully selected mushroom blends integrated into every bottle.
@@ -74,9 +74,9 @@
             <h3 class="font-['Cormorant_Garamond'] font-medium text-[#f4f3f5] text-[28px]">
               Proprietary Infusion
             </h3>
-            <p class="font-semibold text-[#d68e49] text-xs tracking-[1px] uppercase">
+            <!-- <p class="font-semibold text-[#d68e49] text-xs tracking-[1px] uppercase">
               Undetectable Integration
-            </p>
+            </p> -->
           </div>
           <p class="text-[#a5a2aa] text-sm leading-[1.6]">
             Our proprietary infusion platform is designed to preserve the intended beverage experience.
