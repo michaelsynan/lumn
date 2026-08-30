@@ -321,7 +321,7 @@ const toggleFaq = (index: number) => {
               </span>
 
               <h2 class="mt-2 font-['Cormorant_Garamond'] text-4xl sm:text-5xl text-[#f4f3f5]">
-                Product Facts
+                Our Original Cold Brew
               </h2>
             </div>
 
