@@ -4,17 +4,20 @@
 >
 useSeoMeta({
   title: 'Our Story - LUMN',
-  description: 'Learn about the story behind LUMN and our mission to create premium functional beverages.'
+  description: 'Built Around the Beverage. Discover the story, philosophy, and Aurora Protocol behind LUMN functional beverages.'
 })
 </script>
 
 <template>
-  <div class="bg-[#0b0a0d] min-h-screen">
+  <div class="bg-[#0b0a0d] min-h-screen text-[#f4f3f5]">
+    <!-- Header / Hero -->
     <PageHero
-      badge="Our Journey"
-      title="OUR STORY"
-      description="Discover how LUMN came to be and the love we put into making very bottle."
+      badge="Our Story"
+      title="BUILT AROUND THE BEVERAGE"
+      description="LUMN began with a simple belief: functional ingredients should never come at the expense of the drink itself."
     />
+
+
   </div>
 </template>
 

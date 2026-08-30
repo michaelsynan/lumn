@@ -1,7 +1,7 @@
 <template>
   <section
-    class="relative w-full overflow-hidden border-b border-[#28232f]"
-    style="background: radial-gradient(1200px 400px, rgba(214, 142, 73, 0.08) 0%, rgb(11, 10, 13) 100%);"
+    class="relative w-full overflow-hidden border-b border-[#28232f] bg-[url('/aurora-protocol-mushrooms.webp')] bg-cover bg-center bg-fixed"
+    style=""
   >
     <!-- Noise Overlay -->
     <div

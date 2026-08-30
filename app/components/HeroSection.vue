@@ -111,34 +111,38 @@
 
       <!-- Right Visual -->
       <div
-        class="order-first lg:order-none flex border border-[#28232f] flex-col h-auto lg:h-[520px] overflow-hidden relative rounded-3xl w-full max-w-[480px] mx-auto lg:mx-0 lg:w-[480px] flex-shrink-0 bg-[#0b0b0f]"
-        :style="{ aspectRatio: heroContent[activeTime].aspectRatio }"
+        class="order-first lg:order-none flex border border-[#28232f] flex-col h-[520px] overflow-hidden relative rounded-3xl mx-auto lg:mx-0 flex-shrink-0 bg-[#0b0b0f]"
       >
         <!-- Morning Image -->
         <img
           :src="heroContent.morning.image"
           alt="Hero Product - morning"
           :class="heroContent.morning.imageClass"
-          class="absolute transition-opacity duration-600 ease-in-out"
+          class="relative h-full w-auto object-contain transition-opacity duration-600 ease-in-out"
           :style="{ opacity: activeTime === 'morning' ? 1 : 0 }"
         />
+
         <!-- Evening Image -->
         <img
           :src="heroContent.evening.image"
           alt="Hero Product - evening"
           :class="heroContent.evening.imageClass"
-          class="absolute transition-opacity duration-600 ease-in-out"
+          class="absolute inset-0 h-full w-full object-contain transition-opacity duration-600 ease-in-out"
           :style="{ opacity: activeTime === 'evening' ? 1 : 0 }"
         />
+
         <Transition
           name="fade"
           mode="out-in"
         >
           <div
+            v-if="heroContent[activeTime].badge"
             :key="activeTime + '-badge'"
             class="absolute backdrop-blur-sm bg-[rgba(15,15,15,0.8)] border border-[#493c30] flex items-center px-3 py-1.5 right-6 rounded-full top-6 z-10"
           >
-            <span class="text-[#d68e49] text-[11px] font-medium">{{ heroContent[activeTime].badge }}</span>
+            <span class="text-[#d68e49] text-[11px] font-medium">
+              {{ heroContent[activeTime].badge }}
+            </span>
           </div>
         </Transition>
       </div>
@@ -157,10 +161,10 @@ const heroContent = {
     subtitle: 'Cold Brew Coffee Ritual',
     titlePart1: 'ELEVATE YOUR ',
     titlePart2: 'MORNING',
-    description: 'Premium, mushroom-infused cold brew coffee. Smooth and rich with hints of chocolate. Functional beverages without the jitters.',
-    badge: 'COMING SOON',
-    image: '/hero-morning.png',
-    imageClass: 'absolute h-full left-0 top-0 w-full object-cover lg:h-[123.59%] lg:top-[-22.37%]',
+    description: 'Premium, mushroom-infused cold brew coffee. Smooth and rich with hints of chocolate. “Functional beverage, without the functional taste.”',
+    badge: '',
+    image: '/lumn-mushroom-infused-cold-brew.webp',
+    imageClass: 'absolute inset-0 h-full w-full object-contain',
     aspectRatio: '956 / 1280'
   },
   evening: {

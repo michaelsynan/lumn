@@ -41,9 +41,10 @@
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
         :style="{ transitionDelay: '450ms' }"
       >
-        LUMN is a family of beverages designed to help make every moment count. Using our proprietary, patent-pending
-        infusion protocol, LUMN brings the benefits of functional mushrooms to uncompromisingly delicious drinks, giving
-        you permission to indulge and function at the same time.
+        LUMN creates flavor-first beverages
+        infused with functional mushrooms through our proprietary, patent-pending Aurora
+        Protocol. Designed to preserve the intended beverage experience, so what you taste
+        first is the drink itself.
       </p>
     </div>
   </section>

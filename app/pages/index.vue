@@ -1,4 +1,4 @@
-f<template>
+<template>
   <div>
     <HeroSection />
     <WhatIsLumn />

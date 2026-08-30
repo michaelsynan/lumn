@@ -12,8 +12,7 @@
           class="h-14 w-[123px]"
         >
         <p class="text-[#a5a2aa] text-sm leading-[1.6]">
-          Premium adaptogenic beverages crafted for a conscious tomorrow. Enjoy cold, responsibly, and with absolute
-          clarity.
+          Flavor-first functional beverages powered by proprietary mushroom-infusion technology.
         </p>
       </div>
 
@@ -115,7 +114,7 @@
 
     <!-- Footer Bottom -->
     <div class="flex items-center justify-between text-[#a5a2aa] text-xs w-full">
-      <p>© 2026 LUMN Beverages Inc. All rights reserved.</p>
+      <p>© 2026 LUMN Beverages, LLC. All rights reserved.</p>
       <div class="flex gap-6">
         <NuxtLink
           to="/terms"
