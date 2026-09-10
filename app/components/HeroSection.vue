@@ -111,7 +111,7 @@
 
       <!-- Right Visual -->
       <div
-        class="order-first lg:order-none flex border border-[#28232f] flex-col h-[520px] overflow-hidden relative rounded-3xl mx-auto lg:mx-0 flex-shrink-0 bg-[#0b0b0f]"
+        class="order-first lg:order-none flex border border-[#28232f] flex-col h-[520px] overflow-hidden relative mx-auto lg:mx-0 flex-shrink-0 bg-[#0b0b0f]"
       >
         <!-- Morning Image -->
         <img
@@ -174,7 +174,7 @@ const heroContent = {
     description: 'Mango hard cider. Functional mushrooms. No mushroom taste.<br>Small-batch crafted. 7% ABV.',
     badge: '7% Adaptogens',
     image: '/hero-evening.png',
-    imageClass: 'absolute inset-0 w-full h-full object-cover rounded-3xl',
+    imageClass: 'absolute inset-0 w-full h-full object-cover ',
     aspectRatio: '1122 / 1402'
   }
 }

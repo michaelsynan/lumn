@@ -18,7 +18,7 @@
       <!-- Difference Cards Grid -->
       <div class="flex flex-col md:flex-row gap-8 w-full">
         <!-- Card 1 -->
-        <div class="bg-[#0b0a0d] border border-[#28232f] flex flex-1 flex-col gap-6 p-8 rounded-2xl">
+        <div class="bg-[#0b0a0d] border border-[#28232f] flex flex-1 flex-col gap-6 p-8 ">
           <div class="bg-[rgba(214,142,73,0.15)] flex items-center justify-center rounded-xl size-14">
             <img
               src="/difference-icon-1.svg"
@@ -40,7 +40,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="bg-[#0b0a0d] border border-[#28232f] flex flex-1 flex-col gap-6 p-8 rounded-2xl">
+        <div class="bg-[#0b0a0d] border border-[#28232f] flex flex-1 flex-col gap-6 p-8 ">
           <div class="bg-[rgba(214,142,73,0.15)] flex items-center justify-center rounded-xl size-14">
             <img
               src="/difference-icon-2.svg"
@@ -62,7 +62,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="bg-[#0b0a0d] border border-[#28232f] flex flex-1 flex-col gap-6 p-8 rounded-2xl">
+        <div class="bg-[#0b0a0d] border border-[#28232f] flex flex-1 flex-col gap-6 p-8 ">
           <div class="bg-[rgba(214,142,73,0.15)] flex items-center justify-center rounded-xl size-14">
             <img
               src="/difference-icon-3.svg"

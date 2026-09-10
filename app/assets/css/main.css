@@ -17,6 +17,12 @@
   --color-green-950: #052e16;
 }
 
+@layer base {
+  h2 {
+    @apply font-['Cormorant_Garamond'] text-[#f4f3f5] text-[32px] sm:text-[40px] lg:text-5xl pb-10 sm:pb-2 tracking-[1.08px];
+  }
+}
+
 /* Global styles */
 html {
   background: #0b0a0d;

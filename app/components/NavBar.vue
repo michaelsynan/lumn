@@ -42,12 +42,12 @@
       >
         Wholesale & Retailers
       </NuxtLink>
-      <NuxtLink
+      <!-- <NuxtLink
         to="/contact"
         class="hover:text-white transition-colors"
       >
         Contact
-      </NuxtLink>
+      </NuxtLink> -->
 
     </div>
 
@@ -107,13 +107,13 @@
         >
           Wholesale & Retailers
         </NuxtLink>
-        <NuxtLink
+        <!-- <NuxtLink
           to="/contact"
           class="text-[#a5a2aa] hover:text-white transition-colors py-3 text-base font-medium tracking-[0.5px]"
           @click="mobileMenuOpen = false"
         >
           Contact
-        </NuxtLink>
+        </NuxtLink> -->
         <NuxtLink
           to="/find-lumn"
           class="bg-[#1e1e1e] border border-[#d68e49] hover:bg-[#d68e49]/10 text-white px-6 py-3 rounded-full font-['Cinzel'] text-base tracking-[1.08px] transition-colors duration-300 text-center mt-2"

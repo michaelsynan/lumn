@@ -81,7 +81,7 @@
           Join our mailing list for exclusive offers, recipes and more.
         </p>
         <form
-          class="bg-[#141217] border border-[#28232f] flex h-12 items-center justify-between pl-4 pr-2 rounded-lg"
+          class="bg-[#141217] border border-[#28232f] flex h-12 items-center justify-between pl-4 pr-2 "
           @submit.prevent="handleSubmit"
         >
           <input

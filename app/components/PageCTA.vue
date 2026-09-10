@@ -30,13 +30,20 @@
       <!-- Description -->
       <p
         v-if="description"
-        class="text-[#a5a2aa] text-base lg:text-lg text-center leading-[1.7] max-w-[700px] mb-8"
+        class="text-[#a5a2aa] text-base lg:text-lg text-center leading-[1.7] max-w-175 mb-8"
       >
         {{ description }}
       </p>
 
+      <div
+        v-if="fancyButton"
+        class="mb-8"
+      >
+        <FancyButton />
+      </div>
+
       <!-- Decorative Divider -->
-      <div class="h-[1px] w-[200px] bg-gradient-to-r from-transparent via-[#d68e49] to-transparent opacity-30" />
+      <div class="h-px w-50 bg-linear-to-r from-transparent via-[#d68e49] to-transparent opacity-30" />
     </div>
   </section>
 </template>
@@ -49,5 +56,6 @@ defineProps<{
   badge?: string
   title: string
   description?: string
+  fancyButton?: boolean
 }>()
 </script>
