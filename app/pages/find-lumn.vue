@@ -12,7 +12,7 @@ useSeoMeta({
 const runtimeConfig = useRuntimeConfig()
 const mapContainer = ref<HTMLElement | null>(null)
 const mapLoadError = ref('')
-const featuredLocationUrl = 'https://www.theshoppesatrittersfarm.com'
+const featuredLocationUrl = 'https://ritterswinery.com/'
 const rittersFarm: [number, number] = [-75.4947, 41.4190]
 
 let map: import('mapbox-gl').Map | null = null
