@@ -35,7 +35,7 @@ const productSpecs = [
   { label: 'Product', value: 'LUMN Original Cold Brew' },
   { label: 'Type', value: 'Mushroom-Infused Cold Brew Coffee' },
   { label: 'Volume', value: '12 fl oz' },
-  { label: 'Active Blend', value: 'Lion’s Mane • Cordyceps • Chaga' },
+  { label: 'Mushroom Blend', value: 'Lion’s Mane • Cordyceps • Chaga' },
   { label: 'Storage', value: 'Keep Refrigerated' }
 ]
 
@@ -52,7 +52,7 @@ const faqs = ref([
   },
   {
     question: 'Does LUMN contain caffeine?',
-    answer: 'Yes. LUMN Original Cold Brew is a caffeinated coffee beverage. Once the final production specification is locked, the exact caffeine amount can be displayed here.',
+    answer: 'Yes. LUMN Original Cold Brew is a caffeinated coffee beverage.',
     isOpen: false
   },
   {
@@ -183,7 +183,7 @@ const toggleFaq = (index: number) => {
       <div class="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
         <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
           <span class="text-xs font-semibold tracking-[3px] text-[#d68e49] uppercase">
-            ACTIVE INGREDIENTS
+            MUSHROOM BLEND
           </span>
           <h2 class="font-['Cormorant_Garamond'] text-3xl sm:text-5xl lg:text-6xl text-[#f4f3f5]">
             CAFFEINE + MUSHROOMS
@@ -235,7 +235,7 @@ const toggleFaq = (index: number) => {
             WHAT DOES LUMN TASTE LIKE?
           </h2>
           <p class="font-['Cinzel'] text-xl sm:text-2xl text-[#d68e49] font-medium tracking-wide">
-            Cold brew. Not mushroom coffee.
+            COLD BREW FIRST.
           </p>
           <p class="text-[#a5a2aa] text-base sm:text-lg leading-relaxed pt-2">
             Smooth, dark and full-bodied with a naturally chocolate-forward coffee profile. The mushroom infusion is

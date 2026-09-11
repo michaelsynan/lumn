@@ -2,56 +2,145 @@
   setup
   lang="ts"
 >
+import { ref } from 'vue'
+
 useSeoMeta({
   title: 'Our Story - LUMN',
   description: 'Built Around the Beverage. Discover the story, philosophy, and Aurora Protocol behind LUMN functional beverages.'
 })
+
+const cardsRail = ref<HTMLElement | null>(null)
+
+let isRailDragging = false
+let railStartX = 0
+let railStartScrollLeft = 0
+
+const onRailPointerDown = (event: PointerEvent) => {
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    return
+  }
+
+  const rail = cardsRail.value
+  if (!rail) {
+    return
+  }
+
+  isRailDragging = true
+  railStartX = event.clientX
+  railStartScrollLeft = rail.scrollLeft
+  rail.classList.add('is-dragging')
+
+  if (rail.setPointerCapture) {
+    rail.setPointerCapture(event.pointerId)
+  }
+}
+
+const onRailPointerMove = (event: PointerEvent) => {
+  if (!isRailDragging) {
+    return
+  }
+
+  const rail = cardsRail.value
+  if (!rail) {
+    return
+  }
+
+  const dragDistance = event.clientX - railStartX
+  rail.scrollLeft = railStartScrollLeft - dragDistance
+  event.preventDefault()
+}
+
+const onRailPointerUp = (event: PointerEvent) => {
+  if (!isRailDragging) {
+    return
+  }
+
+  const rail = cardsRail.value
+  if (rail) {
+    rail.classList.remove('is-dragging')
+    if (rail.releasePointerCapture) {
+      rail.releasePointerCapture(event.pointerId)
+    }
+  }
+
+  isRailDragging = false
+}
 </script>
 
 <template>
   <div class="bg-[#0b0a0d] min-h-screen text-[#f4f3f5]">
-    <PageHero
+    <!-- <PageHero
       badge="Our Story"
       title="BUILT AROUND THE BEVERAGE"
       description="LUMN began with a simple belief: functional ingredients should never come at the expense of the drink itself."
-    />
+    /> -->
 
-    <section class="border-b border-[#28232f] bg-[#0b0a0d] px-4 py-16 sm:px-8 sm:py-24 lg:px-12">
-      <div class="mx-auto w-full max-w-4xl text-center">
-        <h2 class="text-[13px] font-semibold uppercase tracking-[3px] text-[#d68e49]">
-          OUR STORY
-        </h2>
-        <h3
-          class="mt-4 font-['Cormorant_Garamond'] text-[34px] tracking-[1.08px] text-[#f4f3f5] sm:text-[44px] lg:text-[56px]"
-        >
-          Built Around the Beverage
-        </h3>
+    <section
+      class="relative w-full overflow-hidden border-b border-[#28232f]"
+      style="background: radial-gradient(1200px 400px, rgba(214, 142, 73, 0.08) 0%, rgb(11, 10, 13) 100%);"
+    >
+      <div
+        class="absolute h-full left-0 top-0 w-full mix-blend-overlay opacity-20 pointer-events-none"
+        style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%270 0 400 400%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noiseFilter%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%273.5%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noiseFilter)%27/%3E%3C/svg%3E');"
+      />
 
-        <div class="mt-10 space-y-7 text-center text-base leading-[1.85] text-[#d7d3dc] sm:text-lg">
-          <p>
-            LUMN began with a simple belief: functional ingredients should never come at the expense
-            of the drink itself.
-          </p>
-          <p>
-            Too often, functional beverages ask consumers to accept an unfamiliar taste, medicinal profile,
-            or compromised drinking experience in exchange for what has been added to the bottle.
-            We wanted to approach it differently.
-          </p>
-          <p>
-            At LUMN, the beverage comes first. The coffee should taste like coffee.
-            The flavor should feel intentional. And the ingredients behind it should support the product
-            without overpowering it.
-          </p>
-          <p>
-            That philosophy became the foundation for everything we build.
-          </p>
+      <div
+        class="relative z-10 flex flex-col items-center px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-38 max-w-7xl mx-auto"
+      >
+        <div class="mx-auto w-full max-w-4xl text-center">
+          <div
+            class="inline-flex items-center rounded-full border border-[#d68e49] bg-[rgba(214,142,73,0.15)] px-4 py-2 backdrop-blur-sm"
+          >
+            <span class="block text-[11px] leading-none font-semibold uppercase tracking-[1px] text-[#d68e49]">
+              OUR STORY
+            </span>
+          </div>
+
+          <h3
+            class="mt-6 font-['Cormorant_Garamond'] text-[40px] leading-[1.1] tracking-[-1.5px] text-[#f4f3f5] sm:text-[56px] lg:text-[72px]"
+          >
+            Built Around the Beverage
+          </h3>
+
+          <div class="mt-10 space-y-7 text-center text-base leading-[1.85] text-[#d7d3dc] sm:text-lg">
+            <p>
+              LUMN began with a simple belief: functional ingredients should never come at the expense
+              of the drink itself.
+            </p>
+            <p>
+              Too often, functional beverages ask consumers to accept an unfamiliar taste, medicinal profile,
+              or compromised drinking experience in exchange for what has been added to the bottle.
+              We wanted to approach it differently.
+            </p>
+            <p>
+              At LUMN, the beverage comes first. The coffee should taste like coffee.
+              The flavor should feel intentional. And the ingredients behind it should support the product
+              without overpowering it.
+            </p>
+            <p>
+              That philosophy became the foundation for everything we build.
+            </p>
+          </div>
+
+          <div
+            class="mx-auto mt-10 h-px w-50 bg-linear-to-r from-transparent via-[#d68e49] to-transparent opacity-30" />
         </div>
       </div>
     </section>
 
     <section class="bg-linear-to-b from-[#0f0d13] via-[#120f17] to-[#0f0d13] px-4 py-14 sm:px-8 sm:py-20 lg:px-12">
-      <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
-        <article class="group bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:p-10">
+      <div
+        ref="cardsRail"
+        class="mx-auto flex w-full max-w-7xl gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 scrollbar-none touch-pan-y cursor-grab select-none [&::-webkit-scrollbar]:hidden active:cursor-grabbing md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:snap-none md:pb-0 md:cursor-default"
+        @pointerdown="onRailPointerDown"
+        @pointermove="onRailPointerMove"
+        @pointerup="onRailPointerUp"
+        @pointercancel="onRailPointerUp"
+        @pointerleave="onRailPointerUp"
+      >
+        <article
+          class="group w-[86vw] shrink-0 snap-start bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:w-[72vw] sm:p-10 md:w-auto"
+        >
           <h2 class="text-[13px] font-semibold uppercase tracking-[3px] text-[#d68e49]">
             FLAVOR FIRST
           </h2>
@@ -79,7 +168,9 @@ useSeoMeta({
           </p>
         </article>
 
-        <article class="group bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:p-10">
+        <article
+          class="group w-[86vw] shrink-0 snap-start bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:w-[72vw] sm:p-10 md:w-auto"
+        >
           <h2 class="text-[13px] font-semibold uppercase tracking-[3px] text-[#d68e49]">
             THE PROBLEM WE WANTED TO SOLVE
           </h2>
@@ -114,7 +205,9 @@ useSeoMeta({
           </ul>
         </article>
 
-        <article class="group bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:p-10">
+        <article
+          class="group w-[86vw] shrink-0 snap-start bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:w-[72vw] sm:p-10 md:w-auto"
+        >
           <h2 class="text-[13px] font-semibold uppercase tracking-[3px] text-[#d68e49]">
             MORE THAN COFFEE
           </h2>
@@ -143,7 +236,9 @@ useSeoMeta({
           </p>
         </article>
 
-        <article class="group bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:p-10">
+        <article
+          class="group w-[86vw] shrink-0 snap-start bg-[#131019] p-7 transition-colors duration-300 hover:bg-[#20160f] sm:w-[72vw] sm:p-10 md:w-auto"
+        >
           <h2 class="text-[13px] font-semibold uppercase tracking-[3px] text-[#d68e49]">
             BUILT SMALL. DESIGNED TO GROW.
           </h2>
@@ -305,4 +400,8 @@ useSeoMeta({
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.is-dragging {
+  scroll-snap-type: x proximity;
+}
+</style>

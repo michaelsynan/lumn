@@ -1,13 +1,16 @@
 <template>
   <NuxtLink
-    to="/find-lumn"
-    class="cursor-pointer bg-[#1e1e1e] border border-[#d68e49] flex items-center justify-between p-1 relative rounded-full overflow-visible hover:bg-[#d68e49]/10 transition-colors duration-300 w-[186px] h-[46px]"
+    :to="to"
+    :class="[
+      'cursor-pointer bg-[#1e1e1e] border border-[#d68e49] flex items-center justify-between p-1 relative rounded-full overflow-visible hover:bg-[#d68e49]/10 transition-colors duration-300 h-11.5',
+      widthClass
+    ]"
     @mouseenter="handleHover(true)"
     @mouseleave="handleHover(false)"
   >
     <!-- Single Icon Circle that slides through the button -->
     <div
-      class="absolute border border-[#d68e49] flex items-center justify-center rounded-full size-[38px] z-10 transition-colors duration-300"
+      class="absolute border border-[#d68e49] flex items-center justify-center rounded-full size-9.5 z-10 transition-colors duration-300"
       :class="[
         isAnimating && 'animate-spin-coin',
         isHovered ? 'bg-[#1e1e1e]' : 'bg-[rgba(214,142,73,0.12)]'
@@ -27,7 +30,7 @@
           key="logo"
           src="/button-icon.png"
           alt="Lumn Logo"
-          class="h-[34px] w-[18px]"
+          class="h-8.5 w-4.5"
           style="filter: brightness(1.2);"
         >
         <svg
@@ -54,7 +57,7 @@
       }"
     >
       <span class="font-['Cinzel'] text-white text-lg tracking-[1.08px] whitespace-nowrap">
-        Find Lumn
+        {{ label }}
       </span>
     </div>
   </NuxtLink>
@@ -64,6 +67,16 @@
   setup
   lang="ts"
 >
+withDefaults(defineProps<{
+  to?: string
+  label?: string
+  widthClass?: string
+}>(), {
+  to: '/find-lumn',
+  label: 'Find Lumn',
+  widthClass: 'w-46.5'
+})
+
 const isHovered = ref(false)
 const isAnimating = ref(false)
 

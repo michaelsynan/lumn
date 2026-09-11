@@ -161,7 +161,7 @@ const heroContent = {
     subtitle: 'Cold Brew Coffee Ritual',
     titlePart1: 'ELEVATE YOUR ',
     titlePart2: 'MORNING',
-    description: 'Premium, mushroom-infused cold brew coffee. Smooth and rich with hints of chocolate. “Functional beverage, without the functional taste.”',
+    description: 'Premium, mushroom-infused cold brew coffee. Smooth and rich with hints of chocolate. FUNCTIONAL BEVERAGES. WITHOUT THE FUNCTIONAL FLAVOR.',
     badge: '',
     image: '/lumn-mushroom-infused-cold-brew.webp',
     imageClass: 'absolute inset-0 h-full w-full object-contain',

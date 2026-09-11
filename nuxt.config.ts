@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/eslint", "@nuxt/ui", "@nuxt/fonts", "@nuxt/image"],
+  modules: [
+    "@nuxt/eslint",
+    "@nuxt/ui",
+    "@nuxt/fonts",
+    "@nuxt/image",
+    "nuxt-resend",
+  ],
 
   fonts: {
     families: [
@@ -12,8 +18,8 @@ export default defineNuxtConfig({
 
   app: {
     pageTransition: {
-      name: 'page',
-      mode: 'out-in'
+      name: "page",
+      mode: "out-in",
     },
     head: {
       link: [
@@ -66,7 +72,14 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "mapbox-gl/dist/mapbox-gl.css"],
+
+  runtimeConfig: {
+    contactRecipientEmail: "",
+    public: {
+      mapboxAccessToken: "",
+    },
+  },
 
   routeRules: {
     "/": { prerender: true },

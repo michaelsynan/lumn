@@ -52,12 +52,12 @@
         >
           Aurora Protocol
         </NuxtLink>
-        <NuxtLink
+        <!-- <NuxtLink
           to="/difference"
           class="text-[#a5a2aa] text-sm hover:text-white transition-colors"
         >
           The LUMN Difference
-        </NuxtLink>
+        </NuxtLink> -->
         <NuxtLink
           to="/wholesale-retailers"
           class="text-[#a5a2aa] text-sm hover:text-white transition-colors"

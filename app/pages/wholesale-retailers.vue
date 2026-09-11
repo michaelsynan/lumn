@@ -40,6 +40,8 @@ const inquiryState = reactive<RetailInquiryState>({
 })
 
 const inquirySubmitted = ref(false)
+const isSubmitting = ref(false)
+const submitError = ref('')
 
 const inputUi = {
   base: 'bg-[#1b1a20] border-[#3a3542] text-[#f4f3f5] placeholder:text-[#9d96a7]'
@@ -130,8 +132,53 @@ const toggleFaq = (index: number) => {
   }
 }
 
-const onSubmit = () => {
-  inquirySubmitted.value = true
+const onSubmit = async () => {
+  inquirySubmitted.value = false
+  submitError.value = ''
+  isSubmitting.value = true
+
+  try {
+    await $fetch('/api/wholesale-inquiry', {
+      method: 'POST',
+      body: {
+        firstName: inquiryState.firstName,
+        lastName: inquiryState.lastName,
+        businessName: inquiryState.businessName,
+        businessType: inquiryState.businessType,
+        email: inquiryState.email,
+        phone: inquiryState.phone,
+        businessAddress: inquiryState.businessAddress,
+        city: inquiryState.city,
+        state: inquiryState.state,
+        zipCode: inquiryState.zipCode,
+        numberOfLocations: inquiryState.numberOfLocations,
+        heardAboutLumn: inquiryState.heardAboutLumn,
+        message: inquiryState.message
+      }
+    })
+
+    inquirySubmitted.value = true
+
+    inquiryState.firstName = ''
+    inquiryState.lastName = ''
+    inquiryState.businessName = ''
+    inquiryState.businessType = ''
+    inquiryState.email = ''
+    inquiryState.phone = ''
+    inquiryState.businessAddress = ''
+    inquiryState.city = ''
+    inquiryState.state = ''
+    inquiryState.zipCode = ''
+    inquiryState.numberOfLocations = ''
+    inquiryState.heardAboutLumn = ''
+    inquiryState.message = ''
+  }
+  catch (error: any) {
+    submitError.value = error?.data?.statusMessage || error?.statusMessage || 'Something went wrong while sending your inquiry. Please try again.'
+  }
+  finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
@@ -177,13 +224,13 @@ const onSubmit = () => {
               Become A Retailer
             </NuxtLink>
 
-            <button
+            <!-- <button
               type="button"
               disabled
               class="inline-flex cursor-not-allowed items-center justify-center border border-[#4a414f] bg-[#1a1720] px-5 py-3 text-center font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#a8a2af]"
             >
               Download Product Info (Coming Soon)
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -612,6 +659,7 @@ const onSubmit = () => {
               size="xl"
               color="secondary"
               variant="solid"
+              :loading="isSubmitting"
               class="w-full justify-center border border-[#d68e49] bg-[#d68e49] px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#1a130d] hover:bg-[#e59f5a]"
             >
               Submit Retailer Inquiry
@@ -623,6 +671,13 @@ const onSubmit = () => {
             class="mt-5 border border-[#d68e49]/45 bg-[#2a1a0c] px-4 py-3 text-sm text-[#f7efe4] sm:text-base"
           >
             Thanks for your interest in LUMN. We will be in touch with wholesale information and next steps.
+          </p>
+
+          <p
+            v-if="submitError"
+            class="mt-5 border border-[#7f2a2a]/50 bg-[#2a1212] px-4 py-3 text-sm text-[#ffd9d9] sm:text-base"
+          >
+            {{ submitError }}
           </p>
         </div>
       </div>

@@ -114,7 +114,7 @@ onUnmounted(() => {
         class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 text-center font-['Cinzel'] text-[11px] font-semibold uppercase tracking-[1.8px] text-[#f7efe4] sm:flex-row sm:text-left sm:text-sm">
         <span>No masking-first philosophy</span>
         <span class="hidden h-px w-10 bg-[#d68e49]/55 sm:block" />
-        <span>No medicinal drinking experience</span>
+        <span>No medicinal flavor profile</span>
         <span class="hidden h-px w-10 bg-[#d68e49]/55 sm:block" />
         <span>The beverage remains the focus</span>
       </p>
