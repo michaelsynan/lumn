@@ -12,7 +12,14 @@ type WholesaleInquiryRequestBody = {
   numberOfLocations?: string;
   heardAboutLumn?: string;
   message?: string;
+  website?: string;
+  challengeA?: number | string;
+  challengeB?: number | string;
+  challengeAnswer?: number | string;
 };
+
+const WHOLESALE_LOCK_COOKIE = "lumn_wholesale_lock";
+const WHOLESALE_LOCK_SECONDS = 60 * 60 * 24;
 
 const escapeHtml = (value: string) =>
   value
@@ -29,6 +36,15 @@ export default defineEventHandler(async (event) => {
   const body = await readBody<WholesaleInquiryRequestBody>(event);
   const runtimeConfig = useRuntimeConfig(event);
 
+  const lockUntilRaw = getCookie(event, WHOLESALE_LOCK_COOKIE);
+  const lockUntil = Number(lockUntilRaw);
+  if (Number.isFinite(lockUntil) && lockUntil > Date.now()) {
+    throw createError({
+      statusCode: 429,
+      statusMessage: "A wholesale inquiry was already submitted recently. Please try again in 24 hours.",
+    });
+  }
+
   const firstName = body.firstName?.trim() ?? "";
   const lastName = body.lastName?.trim() ?? "";
   const businessName = body.businessName?.trim() ?? "";
@@ -42,6 +58,34 @@ export default defineEventHandler(async (event) => {
   const numberOfLocations = body.numberOfLocations?.trim() ?? "";
   const heardAboutLumn = body.heardAboutLumn?.trim() ?? "";
   const message = body.message?.trim() ?? "";
+  const website = body.website?.trim() ?? "";
+
+  if (website) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Unable to process this request.",
+    });
+  }
+
+  const challengeA = Number(body.challengeA);
+  const challengeB = Number(body.challengeB);
+  const challengeAnswer = Number(body.challengeAnswer);
+  const challengeIsValid =
+    Number.isInteger(challengeA) &&
+    Number.isInteger(challengeB) &&
+    Number.isInteger(challengeAnswer) &&
+    challengeA >= 1 &&
+    challengeA <= 20 &&
+    challengeB >= 1 &&
+    challengeB <= 20 &&
+    challengeAnswer === challengeA + challengeB;
+
+  if (!challengeIsValid) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Human verification failed. Please solve the addition problem and try again.",
+    });
+  }
 
   if (
     !firstName ||
@@ -133,6 +177,23 @@ export default defineEventHandler(async (event) => {
     recipient,
     subject: emailSubject,
     resendId: data?.id,
+  });
+
+  const lockUntilMs = Date.now() + WHOLESALE_LOCK_SECONDS * 1000;
+  setCookie(event, WHOLESALE_LOCK_COOKIE, String(lockUntilMs), {
+    maxAge: WHOLESALE_LOCK_SECONDS,
+    httpOnly: true,
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+  });
+
+  setCookie(event, "lumn_wholesale_lock_public", String(lockUntilMs), {
+    maxAge: WHOLESALE_LOCK_SECONDS,
+    httpOnly: false,
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
   });
 
   return { ok: true, id: data?.id };

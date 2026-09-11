@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
     <PageHero
       badge="Store Locator"
       title="FIND LUMN"
-      description="Locate stores, cafes, and specialty grocers carrying LUMN functional beverages near you."
+      description="Locate cafes and specialty grocers carrying LUMN functional beverages near you."
     />
 
     <section class="border-b border-[#28232f] bg-[#0e0c12] px-4 py-12 sm:px-8 sm:py-16 lg:px-12">
@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
       </div>
     </section>
     <section
-      class="relative overflow-hidden border-b border-[#28232f] px-4 py-0! sm:px-8 sm:py-24 lg:px-12"
+      class="relative py-20 overflow-hidden border-b border-[#28232f] px-4 sm:px-8 sm:py-24 lg:px-12"
       style="background: radial-gradient(ellipse 1200px 520px at 50% 30%, rgba(214,142,73,0.13) 0%, rgba(11,10,13,1) 100%);"
     >
       <div

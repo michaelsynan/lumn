@@ -21,6 +21,8 @@ type RetailInquiryState = {
   numberOfLocations: string
   heardAboutLumn: string
   message: string
+  website: string
+  challengeAnswer: string
 }
 
 const inquiryState = reactive<RetailInquiryState>({
@@ -36,12 +38,51 @@ const inquiryState = reactive<RetailInquiryState>({
   zipCode: '',
   numberOfLocations: '',
   heardAboutLumn: '',
-  message: ''
+  message: '',
+  website: '',
+  challengeAnswer: ''
 })
 
 const inquirySubmitted = ref(false)
 const isSubmitting = ref(false)
 const submitError = ref('')
+const wholesaleLockPublicCookie = useCookie<string | null>('lumn_wholesale_lock_public', {
+  default: () => null,
+  sameSite: 'strict'
+})
+
+const challengeA = ref(0)
+const challengeB = ref(0)
+
+const generateChallenge = () => {
+  challengeA.value = Math.floor(Math.random() * 20) + 1
+  challengeB.value = Math.floor(Math.random() * 20) + 1
+}
+
+const lockUntilMs = computed(() => {
+  const rawValue = wholesaleLockPublicCookie.value
+  const parsed = Number(rawValue)
+
+  if (!Number.isFinite(parsed) || parsed <= Date.now()) {
+    return null
+  }
+
+  return parsed
+})
+
+const isSubmissionLocked = computed(() => lockUntilMs.value !== null)
+
+const lockoutMessage = computed(() => {
+  if (!lockUntilMs.value) {
+    return ''
+  }
+
+  const remainingMs = lockUntilMs.value - Date.now()
+  const remainingHours = Math.max(1, Math.ceil(remainingMs / (1000 * 60 * 60)))
+  return `This form can only be submitted once every 24 hours. Please try again in about ${remainingHours} hour${remainingHours === 1 ? '' : 's'}.`
+})
+
+generateChallenge()
 
 const inputUi = {
   base: 'bg-[#1b1a20] border-[#3a3542] text-[#f4f3f5] placeholder:text-[#9d96a7]'
@@ -135,6 +176,18 @@ const toggleFaq = (index: number) => {
 const onSubmit = async () => {
   inquirySubmitted.value = false
   submitError.value = ''
+
+  if (isSubmissionLocked.value) {
+    submitError.value = lockoutMessage.value
+    return
+  }
+
+  const userAnswer = Number(inquiryState.challengeAnswer)
+  if (!Number.isInteger(userAnswer) || userAnswer !== challengeA.value + challengeB.value) {
+    submitError.value = 'Please solve the addition problem correctly before submitting.'
+    return
+  }
+
   isSubmitting.value = true
 
   try {
@@ -153,11 +206,17 @@ const onSubmit = async () => {
         zipCode: inquiryState.zipCode,
         numberOfLocations: inquiryState.numberOfLocations,
         heardAboutLumn: inquiryState.heardAboutLumn,
-        message: inquiryState.message
+        message: inquiryState.message,
+        website: inquiryState.website,
+        challengeA: challengeA.value,
+        challengeB: challengeB.value,
+        challengeAnswer: userAnswer
       }
     })
 
     inquirySubmitted.value = true
+    const newLockUntil = Date.now() + 24 * 60 * 60 * 1000
+    wholesaleLockPublicCookie.value = String(newLockUntil)
 
     inquiryState.firstName = ''
     inquiryState.lastName = ''
@@ -172,9 +231,19 @@ const onSubmit = async () => {
     inquiryState.numberOfLocations = ''
     inquiryState.heardAboutLumn = ''
     inquiryState.message = ''
+    inquiryState.website = ''
+    inquiryState.challengeAnswer = ''
+
+    generateChallenge()
   }
   catch (error: any) {
     submitError.value = error?.data?.statusMessage || error?.statusMessage || 'Something went wrong while sending your inquiry. Please try again.'
+    if (error?.statusCode === 429 || error?.data?.statusCode === 429) {
+      if (!wholesaleLockPublicCookie.value) {
+        wholesaleLockPublicCookie.value = String(Date.now() + 24 * 60 * 60 * 1000)
+      }
+    }
+    generateChallenge()
   }
   finally {
     isSubmitting.value = false
@@ -434,6 +503,13 @@ const onSubmit = async () => {
         </p>
 
         <div class="mt-10 border border-[#2f2b38] bg-[#16151b] p-6 sm:p-10">
+          <p
+            v-if="isSubmissionLocked"
+            class="mb-5 border border-[#d68e49]/45 bg-[#2a1a0c] px-4 py-3 text-sm text-[#f7efe4] sm:text-base"
+          >
+            {{ lockoutMessage }}
+          </p>
+
           <UForm
             :state="inquiryState"
             class="space-y-6"
@@ -652,6 +728,40 @@ const onSubmit = async () => {
                   class="w-full"
                 />
               </UFormField>
+
+              <div
+                class="pointer-events-none absolute left-[-5000px] top-auto h-0 w-0 overflow-hidden"
+                aria-hidden="true"
+              >
+                <label for="retail-website">Website</label>
+                <input
+                  id="retail-website"
+                  v-model="inquiryState.website"
+                  type="text"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off"
+                >
+              </div>
+
+              <UFormField
+                name="challengeAnswer"
+                :label="`Human check: What is ${challengeA} + ${challengeB}?`"
+                required
+                class="sm:col-span-2"
+              >
+                <UInput
+                  v-model="inquiryState.challengeAnswer"
+                  type="number"
+                  inputmode="numeric"
+                  placeholder="Enter the sum"
+                  size="lg"
+                  color="neutral"
+                  variant="outline"
+                  :ui="inputUi"
+                  class="w-full"
+                />
+              </UFormField>
             </div>
 
             <UButton
@@ -660,6 +770,7 @@ const onSubmit = async () => {
               color="secondary"
               variant="solid"
               :loading="isSubmitting"
+              :disabled="isSubmitting || isSubmissionLocked"
               class="w-full justify-center border border-[#d68e49] bg-[#d68e49] px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#1a130d] hover:bg-[#e59f5a]"
             >
               Submit Retailer Inquiry
