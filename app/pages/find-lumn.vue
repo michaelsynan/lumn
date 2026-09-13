@@ -300,7 +300,7 @@ onBeforeUnmount(() => {
           RETAIL PARTNERSHIPS
         </h2>
         <h3 class="font-['Cormorant_Garamond'] text-[34px] leading-tight text-[#f4f3f5] sm:text-[46px] lg:text-[58px]">
-          Interest in Carrying LUMN?
+          Interested in Carrying LUMN?
         </h3>
         <p class="max-w-3xl text-base leading-[1.8] text-[#d7d3dc] sm:text-lg">
           Tell us about your store and location. We will follow up with wholesale information, product specs, and next

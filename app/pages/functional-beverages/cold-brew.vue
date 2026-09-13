@@ -171,7 +171,7 @@ const toggleFaq = (index: number) => {
             <blockquote
               class="font-['Cinzel'] text-xl sm:text-2xl md:text-3xl text-[#d68e49] tracking-wide uppercase font-semibold leading-snug"
             >
-              “FUNCTIONAL BEVERAGES. WITHOUT THE FUNCTIONAL FLAVOR.”
+              FUNCTIONAL BEVERAGES. WITHOUT THE FUNCTIONAL FLAVOR.
             </blockquote>
           </div>
         </div>
