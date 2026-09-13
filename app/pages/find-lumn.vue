@@ -18,6 +18,28 @@ const rittersFarm: [number, number] = [-75.4947, 41.4190]
 let map: import('mapbox-gl').Map | null = null
 let popup: import('mapbox-gl').Popup | null = null
 
+const setLayerPaintIfExists = (
+  mapInstance: import('mapbox-gl').Map,
+  layerId: string,
+  paintProperty: string,
+  value: unknown
+) => {
+  if (mapInstance.getLayer(layerId)) {
+    ; (mapInstance as any).setPaintProperty(layerId, paintProperty, value)
+  }
+}
+
+const setLayerLayoutIfExists = (
+  mapInstance: import('mapbox-gl').Map,
+  layerId: string,
+  layoutProperty: string,
+  value: unknown
+) => {
+  if (mapInstance.getLayer(layerId)) {
+    ; (mapInstance as any).setLayoutProperty(layerId, layoutProperty, value)
+  }
+}
+
 const jumpToFeaturedLocation = () => {
   mapContainer.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 
@@ -67,7 +89,7 @@ onMounted(async () => {
       '<div class="space-y-1">'
       + '<p class="text-sm font-semibold">The Shoppes At Ritter\'s Farm</p>'
       + '<p class="text-xs text-[#cfc8d8]">Lake Ariel, Pennsylvania</p>'
-      + '<a href="https://ritterswinery.com/" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#d68e49] underline underline-offset-3">Visit Website</a>'
+      + '<a href="https://ritterswinery.com/" target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex px-1.5 py-0.5 text-xs font-semibold text-[#d68e49] underline underline-offset-3">Visit Website</a>'
       + '</div>'
     )
 
@@ -79,6 +101,124 @@ onMounted(async () => {
     map.on('load', () => {
       map?.resize()
       popup?.addTo(map!)
+
+      if (!map) {
+        return
+      }
+
+      // Slightly lighter dark-map palette for better readability.
+      setLayerPaintIfExists(map, 'background', 'background-color', '#12131a')
+      setLayerPaintIfExists(map, 'land', 'background-color', '#1a1d26')
+      setLayerPaintIfExists(map, 'water', 'fill-color', '#1c2533')
+      setLayerPaintIfExists(map, 'water', 'fill-opacity', 0.9)
+
+      // Brighter roads for easier scanning.
+      setLayerPaintIfExists(map, 'road-primary', 'line-color', '#f2f4fb')
+      setLayerPaintIfExists(map, 'road-secondary-tertiary', 'line-color', '#d9deea')
+      setLayerPaintIfExists(map, 'road-street', 'line-color', '#c5cbda')
+      setLayerPaintIfExists(map, 'bridge-primary', 'line-color', '#fafbff')
+      setLayerPaintIfExists(map, 'bridge-secondary-tertiary', 'line-color', '#e4e8f2')
+
+      // Improve label legibility.
+      setLayerPaintIfExists(map, 'road-label', 'text-color', '#ffffff')
+      setLayerPaintIfExists(map, 'road-label', 'text-halo-color', '#171923')
+      setLayerPaintIfExists(map, 'road-label', 'text-halo-width', 1.25)
+
+      // Push feature/place labels close to white and slightly larger.
+      setLayerPaintIfExists(map, 'settlement-subdivision-label', 'text-color', '#f2f6ff')
+      setLayerPaintIfExists(map, 'settlement-major-label', 'text-color', '#f7f9ff')
+      setLayerPaintIfExists(map, 'place-label', 'text-color', '#f5f8ff')
+      setLayerPaintIfExists(map, 'poi-label', 'text-color', '#edf3ff')
+      setLayerPaintIfExists(map, 'natural-point-label', 'text-color', '#eaf0ff')
+
+      setLayerPaintIfExists(map, 'settlement-subdivision-label', 'text-halo-color', '#151821')
+      setLayerPaintIfExists(map, 'settlement-major-label', 'text-halo-color', '#151821')
+      setLayerPaintIfExists(map, 'place-label', 'text-halo-color', '#151821')
+      setLayerPaintIfExists(map, 'poi-label', 'text-halo-color', '#151821')
+      setLayerPaintIfExists(map, 'natural-point-label', 'text-halo-color', '#151821')
+
+      setLayerPaintIfExists(map, 'settlement-subdivision-label', 'text-halo-width', 1.05)
+      setLayerPaintIfExists(map, 'settlement-major-label', 'text-halo-width', 1.1)
+      setLayerPaintIfExists(map, 'place-label', 'text-halo-width', 1.05)
+      setLayerPaintIfExists(map, 'poi-label', 'text-halo-width', 1)
+      setLayerPaintIfExists(map, 'natural-point-label', 'text-halo-width', 1)
+
+      setLayerLayoutIfExists(map, 'settlement-subdivision-label', 'text-size', [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        6,
+        10,
+        10,
+        13,
+        14,
+        17
+      ])
+      setLayerLayoutIfExists(map, 'settlement-major-label', 'text-size', [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        5,
+        11,
+        9,
+        15,
+        13,
+        19
+      ])
+      setLayerLayoutIfExists(map, 'place-label', 'text-size', [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        5,
+        10,
+        9,
+        13,
+        13,
+        17
+      ])
+      setLayerLayoutIfExists(map, 'poi-label', 'text-size', [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        10,
+        10,
+        14,
+        13
+      ])
+      setLayerLayoutIfExists(map, 'natural-point-label', 'text-size', [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        7,
+        11,
+        12,
+        14
+      ])
+
+      if (map.getSource('composite') && !map.getLayer('lumn-road-highlight')) {
+        map.addLayer({
+          id: 'lumn-road-highlight',
+          type: 'line',
+          source: 'composite',
+          'source-layer': 'road',
+          filter: ['in', ['get', 'class'], ['literal', ['motorway', 'trunk', 'primary', 'secondary']]],
+          paint: {
+            'line-color': '#ffffff',
+            'line-opacity': 0.4,
+            'line-width': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              8,
+              0.7,
+              12,
+              1.5,
+              15,
+              2.8
+            ]
+          }
+        })
+      }
     })
   }
   catch {
@@ -131,7 +271,7 @@ onBeforeUnmount(() => {
           </button>
         </div>
 
-        <div class="overflow-hidden border border-[#2f2b38] bg-[#16151b] shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
+        <div class="overflow-hidden border border-[#9e7a53] bg-[#20222b] shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
           <div
             ref="mapContainer"
             class="h-80 w-full sm:h-110"
@@ -181,7 +321,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 :deep(.lumn-map-popup .mapboxgl-popup-content) {
-  border: 1px solid #2f2b38;
+  border: 1px solid #8f6b43;
   border-radius: 0;
   background: #121017;
   color: #f4f3f5;

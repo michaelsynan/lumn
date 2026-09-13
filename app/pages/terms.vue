@@ -108,10 +108,45 @@ useSeoMeta({
           <p>
             Questions about these Terms of Use can be sent to
             <a
-              href="mailto:hello@lumn.co"
+              href="mailto:admin@lumnbeverages.com"
               class="text-[#d68e49] underline decoration-[#d68e49]/60 underline-offset-4 hover:text-[#e59f5a]"
-            >hello@lumn.co</a>.
+            >admin@lumnbeverages.com</a>.
           </p>
+        </section>
+
+        <section>
+          <h2 class="font-['Cormorant_Garamond'] text-[#f4f3f5] text-[24px] sm:text-[28px] mb-4">
+            Follow Us
+          </h2>
+          <div class="flex items-center gap-4">
+            <a
+              href="https://instagram.com/lumnbeverages/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LUMN Instagram"
+              class="inline-flex size-11 items-center justify-center rounded-full border border-[#3a3542] bg-[#141217] text-[#d68e49] transition-colors hover:border-[#d68e49] hover:bg-[#1a1820] hover:text-[#f7efe4]"
+            >
+              <UIcon
+                name="i-mdi-instagram"
+                class="size-6"
+              />
+              <span class="sr-only">Instagram</span>
+            </a>
+
+            <a
+              href="https://facebook.com/lumnbeverages"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LUMN Facebook"
+              class="inline-flex size-11 items-center justify-center rounded-full border border-[#3a3542] bg-[#141217] text-[#d68e49] transition-colors hover:border-[#d68e49] hover:bg-[#1a1820] hover:text-[#f7efe4]"
+            >
+              <UIcon
+                name="i-mdi-facebook"
+                class="size-6"
+              />
+              <span class="sr-only">Facebook</span>
+            </a>
+          </div>
         </section>
       </div>
     </div>

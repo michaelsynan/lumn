@@ -288,7 +288,7 @@ const onSubmit = async () => {
           <div class="mt-5 flex flex-col gap-4">
             <NuxtLink
               to="#retailer-inquiry"
-              class="inline-flex items-center justify-center border border-[#d68e49] bg-[#d68e49]/10 px-5 py-3 text-center font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#f7efe4] transition-colors duration-300 hover:bg-[#d68e49]/20"
+              class="inline-flex items-center justify-center rounded-full border border-[#d68e49] bg-[#d68e49]/10 px-5 py-3 text-center font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#f7efe4] transition-colors duration-300 hover:bg-[#d68e49]/20"
             >
               Become A Retailer
             </NuxtLink>
@@ -368,7 +368,7 @@ const onSubmit = async () => {
           <div class="mt-8">
             <NuxtLink
               to="/functional-beverages/cold-brew"
-              class="inline-flex items-center gap-2 border border-[#d68e49] px-5 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.3px] text-[#f7efe4] transition-colors duration-300 hover:bg-[#d68e49]/12"
+              class="inline-flex items-center gap-2 rounded-full border border-[#d68e49] px-5 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.3px] text-[#f7efe4] transition-colors duration-300 hover:bg-[#d68e49]/12"
             >
               View Cold Brew
               <span>→</span>
@@ -771,7 +771,7 @@ const onSubmit = async () => {
               variant="solid"
               :loading="isSubmitting"
               :disabled="isSubmitting || isSubmissionLocked"
-              class="w-full justify-center border border-[#d68e49] bg-[#d68e49] px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#1a130d] hover:bg-[#e59f5a]"
+              class="w-full justify-center rounded-full border border-[#d68e49] bg-[#d68e49] px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#1a130d] hover:bg-[#e59f5a]"
             >
               Submit Retailer Inquiry
             </UButton>
@@ -839,13 +839,13 @@ const onSubmit = async () => {
         <div class="mt-4 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
           <NuxtLink
             to="#retailer-inquiry"
-            class="inline-flex items-center justify-center border border-[#d68e49] bg-[#d68e49]/12 px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#f7efe4] transition-colors duration-300 hover:bg-[#d68e49]/20"
+            class="inline-flex items-center justify-center rounded-full border border-[#d68e49] bg-[#d68e49]/12 px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#f7efe4] transition-colors duration-300 hover:bg-[#d68e49]/20"
           >
             Become A Retailer
           </NuxtLink>
           <NuxtLink
             to="/find-lumn"
-            class="inline-flex items-center justify-center border border-[#4a414f] px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#f4f3f5] transition-colors duration-300 hover:border-[#d68e49] hover:text-[#d68e49]"
+            class="inline-flex items-center justify-center rounded-full border border-[#4a414f] px-6 py-3 font-['Cinzel'] text-sm font-semibold uppercase tracking-[1.4px] text-[#f4f3f5] transition-colors duration-300 hover:border-[#d68e49] hover:text-[#d68e49]"
           >
             Find Lumn
           </NuxtLink>

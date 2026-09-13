@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="bg-[#0b0a0d] border-t border-[#28232f] flex flex-col gap-20 pb-12 pt-12 sm:pt-24 px-4 sm:px-8 lg:px-20 w-full"
+    class="bg-[#0b0a0d] border-t border-[#28232f] flex flex-col gap-8 pb-12 pt-12 sm:pt-24 px-4 sm:px-8 lg:px-20 w-full"
   >
     <!-- Footer Upper -->
     <div class="flex flex-col md:flex-row items-start justify-between w-full gap-8 md:gap-4">
@@ -72,40 +72,43 @@
         </NuxtLink> -->
       </div>
 
-      <!-- Newsletter Column -->
+      <!-- Social Column -->
       <div class="flex flex-col gap-4 w-full md:w-[405px]">
         <h3 class="text-[#f4f3f5] text-sm font-bold">
-          Stay Illuminated
+          Follow LUMN
         </h3>
-        <p class="text-[#a5a2aa] text-xs">
-          Join our mailing list for exclusive offers, recipes and more.
+        <p class="text-[#a5a2aa] text-xs leading-[1.6]">
+          Stay connected for product drops, behind-the-scenes updates, and community highlights.
         </p>
-        <form
-          class="bg-[#141217] border border-[#28232f] flex h-12 items-center justify-between pl-4 pr-2 "
-          @submit.prevent="handleSubmit"
-        >
-          <input
-            v-model="email"
-            type="email"
-            placeholder="Enter email address"
-            class="bg-transparent text-[#a5a2aa] text-sm outline-none flex-1"
+        <div class="flex items-center gap-4 pt-1">
+          <a
+            href="https://instagram.com/lumnbeverages/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LUMN Instagram"
+            class="inline-flex size-11 items-center justify-center rounded-full border border-[#3a3542] bg-[#141217] text-[#d68e49] transition-colors hover:border-[#d68e49] hover:bg-[#1a1820] hover:text-[#f7efe4]"
           >
-          <button
-            type="submit"
-            class="cursor-pointer bg-[#d68e49] flex items-center justify-center rounded-md size-8 hover:bg-[#d68e49]/90 transition-colors"
+            <UIcon
+              name="i-mdi-instagram"
+              class="size-6"
+            />
+            <span class="sr-only">Instagram</span>
+          </a>
+
+          <a
+            href="https://facebook.com/lumnbeverages"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LUMN Facebook"
+            class="inline-flex size-11 items-center justify-center rounded-full border border-[#3a3542] bg-[#141217] text-[#d68e49] transition-colors hover:border-[#d68e49] hover:bg-[#1a1820] hover:text-[#f7efe4]"
           >
-            <svg
-              class="size-4"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-        </form>
+            <UIcon
+              name="i-mdi-facebook"
+              class="size-6"
+            />
+            <span class="sr-only">Facebook</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -113,9 +116,10 @@
     <div class="border-t border-[#28232f] w-full" />
 
     <!-- Footer Bottom -->
-    <div class="flex items-center justify-between text-[#a5a2aa] text-xs w-full">
-      <p>© 2026 LUMN Beverages, LLC. All rights reserved.</p>
-      <div class="flex gap-6">
+    <div class="grid w-full grid-cols-1 gap-3 text-xs text-[#a5a2aa] sm:grid-cols-3 sm:items-center">
+      <p class="text-center sm:text-left">© 2026 LUMN Beverages, LLC. All rights reserved.</p>
+
+      <div class="flex justify-center gap-6">
         <NuxtLink
           to="/terms"
           class="hover:text-white transition-colors"
@@ -129,19 +133,15 @@
           Privacy Policy
         </NuxtLink>
       </div>
+
+      <a
+        href="https://formworkstudios.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-center font-mono text-[11px] uppercase tracking-[1.2px] text-[#9c98a6] transition-colors hover:text-[#d68e49] sm:text-right"
+      >
+        Website by Formwork Studios
+      </a>
     </div>
   </footer>
 </template>
-
-<script
-  setup
-  lang="ts"
->
-const email = ref('')
-
-const handleSubmit = () => {
-  console.log('Email submitted:', email.value)
-  // Handle newsletter signup
-  email.value = ''
-}
-</script>
