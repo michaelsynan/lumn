@@ -10,17 +10,17 @@ useSeoMeta({
 const mushrooms = [
   {
     name: "Lion's Mane",
-    image: '/lions-mane.png',
+    image: '/lions-mane-new-fixed.jpeg',
     alt: "Lion's Mane mushroom"
   },
   {
     name: 'Cordyceps',
-    image: '/codyceps.png',
+    image: '/cordyceps-new-fixed.jpeg',
     alt: 'Cordyceps mushroom'
   },
   {
     name: 'Chaga',
-    image: '/chaga.png',
+    image: '/Chaga-new-fixed.png',
     alt: 'Chaga mushroom'
   }
 ]
