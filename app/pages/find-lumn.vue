@@ -12,11 +12,30 @@ useSeoMeta({
 const runtimeConfig = useRuntimeConfig()
 const mapContainer = ref<HTMLElement | null>(null)
 const mapLoadError = ref('')
-const featuredLocationUrl = 'https://ritterswinery.com/'
+const selectedLocation = ref('electric-city')
+const featuredLocationUrl = 'https://electriccityroasting.com/'
 const rittersFarm: [number, number] = [-75.4947, 41.4190]
+const electricCityRoasting: [number, number] = [-75.6322, 41.4197]
 
 let map: import('mapbox-gl').Map | null = null
 let popup: import('mapbox-gl').Popup | null = null
+let rittersPopup: import('mapbox-gl').Popup | null = null
+
+const selectLocation = (location: 'electric-city' | 'ritters-farm') => {
+  selectedLocation.value = location
+
+  if (!map) {
+    return
+  }
+
+  const coordinates = location === 'electric-city' ? electricCityRoasting : rittersFarm
+  map.flyTo({ center: coordinates, zoom: 13, speed: 0.9, curve: 1.2 })
+  popup?.remove()
+  rittersPopup?.remove()
+
+  const selectedPopup = location === 'electric-city' ? popup : rittersPopup
+  selectedPopup?.addTo(map)
+}
 
 const setLayerPaintIfExists = (
   mapInstance: import('mapbox-gl').Map,
@@ -47,11 +66,7 @@ const jumpToFeaturedLocation = () => {
     return
   }
 
-  map.flyTo({ center: rittersFarm, zoom: 13, speed: 0.9, curve: 1.2 })
-
-  if (popup) {
-    popup.addTo(map)
-  }
+  selectLocation('electric-city')
 }
 
 onMounted(async () => {
@@ -81,7 +96,7 @@ onMounted(async () => {
     map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left')
     map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right')
 
-    popup = new mapboxgl.Popup({
+    rittersPopup = new mapboxgl.Popup({
       offset: 18,
       closeButton: false,
       className: 'lumn-map-popup'
@@ -93,10 +108,29 @@ onMounted(async () => {
       + '</div>'
     )
 
-    new mapboxgl.Marker({ color: '#d68e49' })
+    const rittersMarker = new mapboxgl.Marker({ color: '#d68e49' })
       .setLngLat(rittersFarm)
+      .setPopup(rittersPopup)
+      .addTo(map)
+    rittersMarker.getElement().addEventListener('click', () => selectLocation('ritters-farm'))
+
+    popup = new mapboxgl.Popup({
+      offset: 18,
+      closeButton: false,
+      className: 'lumn-map-popup'
+    }).setHTML(
+      '<div class="space-y-1">'
+      + '<p class="text-sm font-semibold">Electric City Roasting Company</p>'
+      + '<p class="text-xs text-[#cfc8d8]">101 N. Blakely St., Dunmore, PA 18512</p>'
+      + '<a href="https://electriccityroasting.com/" target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex px-1.5 py-0.5 text-xs font-semibold text-[#d68e49] underline underline-offset-3">Visit Website</a>'
+      + '</div>'
+    )
+
+    const electricCityMarker = new mapboxgl.Marker({ color: '#d68e49' })
+      .setLngLat(electricCityRoasting)
       .setPopup(popup)
       .addTo(map)
+    electricCityMarker.getElement().addEventListener('click', () => selectLocation('electric-city'))
 
     map.on('load', () => {
       map?.resize()
@@ -105,6 +139,8 @@ onMounted(async () => {
       if (!map) {
         return
       }
+
+      map.fitBounds([rittersFarm, electricCityRoasting], { padding: 80, maxZoom: 11.5 })
 
       // Slightly lighter dark-map palette for better readability.
       setLayerPaintIfExists(map, 'background', 'background-color', '#12131a')
@@ -248,9 +284,10 @@ onBeforeUnmount(() => {
           <div>
             <p class="font-['Cinzel'] text-xs font-semibold uppercase tracking-[1.6px] text-[#d68e49]">Featured Location
             </p>
-            <h2 class="mt-2 font-['Cormorant_Garamond'] text-[34px] leading-tight text-[#f4f3f5] sm:text-[42px]">The
-              Shoppes At Ritter's Farm</h2>
-            <p class="mt-2 text-sm text-[#d7d3dc] sm:text-base">Lake Ariel, Pennsylvania</p>
+            <h2 class="mt-2 font-['Cormorant_Garamond'] text-[34px] leading-tight text-[#f4f3f5] sm:text-[42px]">
+              Electric City Roasting Company
+            </h2>
+            <p class="mt-2 text-sm text-[#d7d3dc] sm:text-base">101 N. Blakely St., Dunmore, PA 18512</p>
 
             <a
               :href="featuredLocationUrl"
@@ -276,6 +313,54 @@ onBeforeUnmount(() => {
             ref="mapContainer"
             class="h-80 w-full sm:h-110"
           />
+        </div>
+
+        <div class="mt-6 flex flex-col gap-4">
+          <article
+            class="border bg-[#15131a] p-5 transition-colors sm:p-6"
+            :class="selectedLocation === 'electric-city' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+          >
+            <button
+              type="button"
+              class="w-full text-left"
+              @click="selectLocation('electric-city')"
+            >
+              <p class="font-['Cinzel'] text-[10px] font-semibold uppercase tracking-[1.4px] text-[#d68e49]">Featured
+                Location</p>
+              <h3 class="mt-2 font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">Electric City Roasting Company</h3>
+              <p class="mt-1 text-sm text-[#d7d3dc]">101 N. Blakely St., Dunmore, PA 18512</p>
+            </button>
+            <a
+              href="https://electriccityroasting.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex w-fit items-center text-sm font-semibold text-[#d68e49] underline underline-offset-4 transition-colors duration-300 hover:text-[#f7efe4]"
+            >
+              Visit Location Website
+            </a>
+          </article>
+
+          <article
+            class="border bg-[#15131a] p-5 transition-colors sm:p-6"
+            :class="selectedLocation === 'ritters-farm' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+          >
+            <button
+              type="button"
+              class="w-full text-left"
+              @click="selectLocation('ritters-farm')"
+            >
+              <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">The Shoppes At Ritter's Farm</h3>
+              <p class="mt-1 text-sm text-[#d7d3dc]">Lake Ariel, Pennsylvania</p>
+            </button>
+            <a
+              href="https://ritterswinery.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex w-fit items-center text-sm font-semibold text-[#d68e49] underline underline-offset-4 transition-colors duration-300 hover:text-[#f7efe4]"
+            >
+              Visit Location Website
+            </a>
+          </article>
         </div>
 
         <p
