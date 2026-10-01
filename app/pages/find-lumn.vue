@@ -16,24 +16,40 @@ const selectedLocation = ref('electric-city')
 const featuredLocationUrl = 'https://electriccityroasting.com/'
 const rittersFarm: [number, number] = [-75.4947, 41.4190]
 const electricCityRoasting: [number, number] = [-75.6322, 41.4197]
+const qwikMart: [number, number] = [-75.3460, 41.4115]
+const sunco: [number, number] = [-75.4134541, 41.4043990]
+const pierosPizza: [number, number] = [-75.4050307, 41.4039342]
 
 let map: import('mapbox-gl').Map | null = null
 let popup: import('mapbox-gl').Popup | null = null
 let rittersPopup: import('mapbox-gl').Popup | null = null
+let qwikMartPopup: import('mapbox-gl').Popup | null = null
+let suncoPopup: import('mapbox-gl').Popup | null = null
+let pierosPizzaPopup: import('mapbox-gl').Popup | null = null
 
-const selectLocation = (location: 'electric-city' | 'ritters-farm') => {
+const selectLocation = (location: 'electric-city' | 'ritters-farm' | 'qwik-mart' | 'sunco' | 'pieros-pizza') => {
   selectedLocation.value = location
 
   if (!map) {
     return
   }
 
-  const coordinates = location === 'electric-city' ? electricCityRoasting : rittersFarm
+  const coordinates = location === 'electric-city'
+    ? electricCityRoasting
+    : location === 'ritters-farm' ? rittersFarm
+      : location === 'qwik-mart' ? qwikMart
+        : location === 'sunco' ? sunco : pierosPizza
   map.flyTo({ center: coordinates, zoom: 13, speed: 0.9, curve: 1.2 })
   popup?.remove()
   rittersPopup?.remove()
+  qwikMartPopup?.remove()
+  suncoPopup?.remove()
+  pierosPizzaPopup?.remove()
 
-  const selectedPopup = location === 'electric-city' ? popup : rittersPopup
+  const selectedPopup = location === 'electric-city' ? popup
+    : location === 'ritters-farm' ? rittersPopup
+      : location === 'qwik-mart' ? qwikMartPopup
+        : location === 'sunco' ? suncoPopup : pierosPizzaPopup
   selectedPopup?.addTo(map)
 }
 
@@ -114,6 +130,57 @@ onMounted(async () => {
       .addTo(map)
     rittersMarker.getElement().addEventListener('click', () => selectLocation('ritters-farm'))
 
+    qwikMartPopup = new mapboxgl.Popup({
+      offset: 18,
+      closeButton: false,
+      className: 'lumn-map-popup'
+    }).setHTML(
+      '<div class="space-y-1">'
+      + '<p class="text-sm font-semibold">Qwik Mart</p>'
+      + '<p class="text-xs text-[#cfc8d8]">1242 Hamlin Hwy, Lake Ariel, PA 18436</p>'
+      + '</div>'
+    )
+
+    const qwikMartMarker = new mapboxgl.Marker({ color: '#d68e49' })
+      .setLngLat(qwikMart)
+      .setPopup(qwikMartPopup)
+      .addTo(map)
+    qwikMartMarker.getElement().addEventListener('click', () => selectLocation('qwik-mart'))
+
+    suncoPopup = new mapboxgl.Popup({
+      offset: 18,
+      closeButton: false,
+      className: 'lumn-map-popup'
+    }).setHTML(
+      '<div class="space-y-1">'
+      + '<p class="text-sm font-semibold">Sunco</p>'
+      + '<p class="text-xs text-[#cfc8d8]">466 Hamlin Hwy, Hamlin, PA 18427</p>'
+      + '</div>'
+    )
+
+    const suncoMarker = new mapboxgl.Marker({ color: '#d68e49' })
+      .setLngLat(sunco)
+      .setPopup(suncoPopup)
+      .addTo(map)
+    suncoMarker.getElement().addEventListener('click', () => selectLocation('sunco'))
+
+    pierosPizzaPopup = new mapboxgl.Popup({
+      offset: 18,
+      closeButton: false,
+      className: 'lumn-map-popup'
+    }).setHTML(
+      '<div class="space-y-1">'
+      + '<p class="text-sm font-semibold">Piero\'s Pizza</p>'
+      + '<p class="text-xs text-[#cfc8d8]">590 Hamlin Hwy, Lake Ariel, PA 18436</p>'
+      + '</div>'
+    )
+
+    const pierosPizzaMarker = new mapboxgl.Marker({ color: '#d68e49' })
+      .setLngLat(pierosPizza)
+      .setPopup(pierosPizzaPopup)
+      .addTo(map)
+    pierosPizzaMarker.getElement().addEventListener('click', () => selectLocation('pieros-pizza'))
+
     popup = new mapboxgl.Popup({
       offset: 18,
       closeButton: false,
@@ -140,7 +207,12 @@ onMounted(async () => {
         return
       }
 
-      map.fitBounds([rittersFarm, electricCityRoasting], { padding: 80, maxZoom: 11.5 })
+      const locationBounds = new mapboxgl.LngLatBounds(rittersFarm, rittersFarm)
+      locationBounds.extend(electricCityRoasting)
+      locationBounds.extend(qwikMart)
+      locationBounds.extend(sunco)
+      locationBounds.extend(pierosPizza)
+      map.fitBounds(locationBounds, { padding: 80, maxZoom: 11.5 })
 
       // Slightly lighter dark-map palette for better readability.
       setLayerPaintIfExists(map, 'background', 'background-color', '#12131a')
@@ -317,12 +389,12 @@ onBeforeUnmount(() => {
 
         <div class="mt-6 flex flex-col gap-4">
           <article
-            class="border bg-[#15131a] p-5 transition-colors sm:p-6"
+            class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6"
             :class="selectedLocation === 'electric-city' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
           >
             <button
               type="button"
-              class="w-full text-left"
+              class="w-full cursor-pointer text-left"
               @click="selectLocation('electric-city')"
             >
               <p class="font-['Cinzel'] text-[10px] font-semibold uppercase tracking-[1.4px] text-[#d68e49]">Featured
@@ -341,12 +413,12 @@ onBeforeUnmount(() => {
           </article>
 
           <article
-            class="border bg-[#15131a] p-5 transition-colors sm:p-6"
+            class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6"
             :class="selectedLocation === 'ritters-farm' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
           >
             <button
               type="button"
-              class="w-full text-left"
+              class="w-full cursor-pointer text-left"
               @click="selectLocation('ritters-farm')"
             >
               <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">The Shoppes At Ritter's Farm</h3>
@@ -360,6 +432,48 @@ onBeforeUnmount(() => {
             >
               Visit Location Website
             </a>
+          </article>
+
+          <article
+            class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6"
+            :class="selectedLocation === 'qwik-mart' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+          >
+            <button
+              type="button"
+              class="w-full cursor-pointer text-left"
+              @click="selectLocation('qwik-mart')"
+            >
+              <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">Qwik Mart</h3>
+              <p class="mt-1 text-sm text-[#d7d3dc]">1242 Hamlin Hwy, Lake Ariel, PA 18436</p>
+            </button>
+          </article>
+
+          <article
+            class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6"
+            :class="selectedLocation === 'sunco' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+          >
+            <button
+              type="button"
+              class="w-full cursor-pointer text-left"
+              @click="selectLocation('sunco')"
+            >
+              <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">Sunco</h3>
+              <p class="mt-1 text-sm text-[#d7d3dc]">466 Hamlin Hwy, Hamlin, PA 18427</p>
+            </button>
+          </article>
+
+          <article
+            class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6"
+            :class="selectedLocation === 'pieros-pizza' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+          >
+            <button
+              type="button"
+              class="w-full cursor-pointer text-left"
+              @click="selectLocation('pieros-pizza')"
+            >
+              <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">Piero's Pizza</h3>
+              <p class="mt-1 text-sm text-[#d7d3dc]">590 Hamlin Hwy, Lake Ariel, PA 18436</p>
+            </button>
           </article>
         </div>
 
