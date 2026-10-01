@@ -17,17 +17,17 @@ const featuredLocationUrl = 'https://electriccityroasting.com/'
 const rittersFarm: [number, number] = [-75.4947, 41.4190]
 const electricCityRoasting: [number, number] = [-75.6322, 41.4197]
 const qwikMart: [number, number] = [-75.3460, 41.4115]
-const sunco: [number, number] = [-75.4134541, 41.4043990]
+const sunoco: [number, number] = [-75.4134541, 41.4043990]
 const pierosPizza: [number, number] = [-75.4050307, 41.4039342]
 
 let map: import('mapbox-gl').Map | null = null
 let popup: import('mapbox-gl').Popup | null = null
 let rittersPopup: import('mapbox-gl').Popup | null = null
 let qwikMartPopup: import('mapbox-gl').Popup | null = null
-let suncoPopup: import('mapbox-gl').Popup | null = null
+let sunocoPopup: import('mapbox-gl').Popup | null = null
 let pierosPizzaPopup: import('mapbox-gl').Popup | null = null
 
-const selectLocation = (location: 'electric-city' | 'ritters-farm' | 'qwik-mart' | 'sunco' | 'pieros-pizza') => {
+const selectLocation = (location: 'electric-city' | 'ritters-farm' | 'qwik-mart' | 'sunoco' | 'pieros-pizza') => {
   selectedLocation.value = location
 
   if (!map) {
@@ -38,18 +38,18 @@ const selectLocation = (location: 'electric-city' | 'ritters-farm' | 'qwik-mart'
     ? electricCityRoasting
     : location === 'ritters-farm' ? rittersFarm
       : location === 'qwik-mart' ? qwikMart
-        : location === 'sunco' ? sunco : pierosPizza
+        : location === 'sunoco' ? sunoco : pierosPizza
   map.flyTo({ center: coordinates, zoom: 13, speed: 0.9, curve: 1.2 })
   popup?.remove()
   rittersPopup?.remove()
   qwikMartPopup?.remove()
-  suncoPopup?.remove()
+  sunocoPopup?.remove()
   pierosPizzaPopup?.remove()
 
   const selectedPopup = location === 'electric-city' ? popup
     : location === 'ritters-farm' ? rittersPopup
       : location === 'qwik-mart' ? qwikMartPopup
-        : location === 'sunco' ? suncoPopup : pierosPizzaPopup
+        : location === 'sunoco' ? sunocoPopup : pierosPizzaPopup
   selectedPopup?.addTo(map)
 }
 
@@ -147,22 +147,22 @@ onMounted(async () => {
       .addTo(map)
     qwikMartMarker.getElement().addEventListener('click', () => selectLocation('qwik-mart'))
 
-    suncoPopup = new mapboxgl.Popup({
+    sunocoPopup = new mapboxgl.Popup({
       offset: 18,
       closeButton: false,
       className: 'lumn-map-popup'
     }).setHTML(
       '<div class="space-y-1">'
-      + '<p class="text-sm font-semibold">Sunco</p>'
+      + '<p class="text-sm font-semibold">Sunoco</p>'
       + '<p class="text-xs text-[#cfc8d8]">466 Hamlin Hwy, Hamlin, PA 18427</p>'
       + '</div>'
     )
 
-    const suncoMarker = new mapboxgl.Marker({ color: '#d68e49' })
-      .setLngLat(sunco)
-      .setPopup(suncoPopup)
+    const sunocoMarker = new mapboxgl.Marker({ color: '#d68e49' })
+      .setLngLat(sunoco)
+      .setPopup(sunocoPopup)
       .addTo(map)
-    suncoMarker.getElement().addEventListener('click', () => selectLocation('sunco'))
+    sunocoMarker.getElement().addEventListener('click', () => selectLocation('sunoco'))
 
     pierosPizzaPopup = new mapboxgl.Popup({
       offset: 18,
@@ -210,7 +210,7 @@ onMounted(async () => {
       const locationBounds = new mapboxgl.LngLatBounds(rittersFarm, rittersFarm)
       locationBounds.extend(electricCityRoasting)
       locationBounds.extend(qwikMart)
-      locationBounds.extend(sunco)
+      locationBounds.extend(sunoco)
       locationBounds.extend(pierosPizza)
       map.fitBounds(locationBounds, { padding: 80, maxZoom: 11.5 })
 
@@ -450,14 +450,14 @@ onBeforeUnmount(() => {
 
           <article
             class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6"
-            :class="selectedLocation === 'sunco' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+            :class="selectedLocation === 'sunoco' ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
           >
             <button
               type="button"
               class="w-full cursor-pointer text-left"
-              @click="selectLocation('sunco')"
+              @click="selectLocation('sunoco')"
             >
-              <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">Sunco</h3>
+              <h3 class="font-['Cormorant_Garamond'] text-2xl text-[#f4f3f5]">Sunoco</h3>
               <p class="mt-1 text-sm text-[#d7d3dc]">466 Hamlin Hwy, Hamlin, PA 18427</p>
             </button>
           </article>
