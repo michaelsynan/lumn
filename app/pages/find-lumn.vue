@@ -27,6 +27,18 @@ let qwikMartPopup: import('mapbox-gl').Popup | null = null
 let sunocoPopup: import('mapbox-gl').Popup | null = null
 let pierosPizzaPopup: import('mapbox-gl').Popup | null = null
 
+const createLogoMarker = () => {
+  const el = document.createElement('div')
+  el.className = 'lumn-map-marker'
+
+  const img = document.createElement('img')
+  img.src = '/nav-logo.png'
+  img.alt = 'LUMN location'
+  el.appendChild(img)
+
+  return el
+}
+
 const selectLocation = (location: 'electric-city' | 'ritters-farm' | 'qwik-mart' | 'sunoco' | 'pieros-pizza') => {
   selectedLocation.value = location
 
@@ -113,7 +125,7 @@ onMounted(async () => {
     map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right')
 
     rittersPopup = new mapboxgl.Popup({
-      offset: 18,
+      offset: 28,
       closeButton: false,
       className: 'lumn-map-popup'
     }).setHTML(
@@ -124,14 +136,14 @@ onMounted(async () => {
       + '</div>'
     )
 
-    const rittersMarker = new mapboxgl.Marker({ color: '#d68e49' })
+    const rittersMarker = new mapboxgl.Marker({ element: createLogoMarker() })
       .setLngLat(rittersFarm)
       .setPopup(rittersPopup)
       .addTo(map)
     rittersMarker.getElement().addEventListener('click', () => selectLocation('ritters-farm'))
 
     qwikMartPopup = new mapboxgl.Popup({
-      offset: 18,
+      offset: 28,
       closeButton: false,
       className: 'lumn-map-popup'
     }).setHTML(
@@ -141,14 +153,14 @@ onMounted(async () => {
       + '</div>'
     )
 
-    const qwikMartMarker = new mapboxgl.Marker({ color: '#d68e49' })
+    const qwikMartMarker = new mapboxgl.Marker({ element: createLogoMarker() })
       .setLngLat(qwikMart)
       .setPopup(qwikMartPopup)
       .addTo(map)
     qwikMartMarker.getElement().addEventListener('click', () => selectLocation('qwik-mart'))
 
     sunocoPopup = new mapboxgl.Popup({
-      offset: 18,
+      offset: 28,
       closeButton: false,
       className: 'lumn-map-popup'
     }).setHTML(
@@ -158,14 +170,14 @@ onMounted(async () => {
       + '</div>'
     )
 
-    const sunocoMarker = new mapboxgl.Marker({ color: '#d68e49' })
+    const sunocoMarker = new mapboxgl.Marker({ element: createLogoMarker() })
       .setLngLat(sunoco)
       .setPopup(sunocoPopup)
       .addTo(map)
     sunocoMarker.getElement().addEventListener('click', () => selectLocation('sunoco'))
 
     pierosPizzaPopup = new mapboxgl.Popup({
-      offset: 18,
+      offset: 28,
       closeButton: false,
       className: 'lumn-map-popup'
     }).setHTML(
@@ -175,14 +187,14 @@ onMounted(async () => {
       + '</div>'
     )
 
-    const pierosPizzaMarker = new mapboxgl.Marker({ color: '#d68e49' })
+    const pierosPizzaMarker = new mapboxgl.Marker({ element: createLogoMarker() })
       .setLngLat(pierosPizza)
       .setPopup(pierosPizzaPopup)
       .addTo(map)
     pierosPizzaMarker.getElement().addEventListener('click', () => selectLocation('pieros-pizza'))
 
     popup = new mapboxgl.Popup({
-      offset: 18,
+      offset: 28,
       closeButton: false,
       className: 'lumn-map-popup'
     }).setHTML(
@@ -193,7 +205,7 @@ onMounted(async () => {
       + '</div>'
     )
 
-    const electricCityMarker = new mapboxgl.Marker({ color: '#d68e49' })
+    const electricCityMarker = new mapboxgl.Marker({ element: createLogoMarker() })
       .setLngLat(electricCityRoasting)
       .setPopup(popup)
       .addTo(map)
@@ -519,6 +531,32 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+:deep(.lumn-map-marker) {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 2px solid #d68e49;
+  overflow: hidden;
+  background: #0b0a0d;
+  box-shadow: 0 0 16px rgba(214, 142, 73, 0.45), 0 8px 18px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+:deep(.lumn-map-marker:hover) {
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(214, 142, 73, 0.65), 0 10px 22px rgba(0, 0, 0, 0.55);
+}
+
+:deep(.lumn-map-marker img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
 :deep(.lumn-map-popup .mapboxgl-popup-content) {
   border: 1px solid #8f6b43;
   border-radius: 0;
