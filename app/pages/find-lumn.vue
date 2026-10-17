@@ -79,7 +79,46 @@ const mapLoadError = ref('')
 const selectedLocation = ref(featuredLocation?.id ?? '')
 
 let map: import('mapbox-gl').Map | null = null
+let mapReady = false
 const locationPopups = new Map<string, import('mapbox-gl').Popup>()
+
+let scrollAnimationFrame = 0
+
+const smoothScrollToMap = () => {
+  const container = mapContainer.value
+
+  if (!container) {
+    return
+  }
+
+  cancelAnimationFrame(scrollAnimationFrame)
+
+  const startY = window.scrollY
+  const targetY = startY + container.getBoundingClientRect().top - (window.innerHeight - container.offsetHeight) / 2
+  const distance = targetY - startY
+
+  if (Math.abs(distance) < 4) {
+    return
+  }
+
+  const duration = 650
+  const startTime = performance.now()
+
+  const step = (now: number) => {
+    const progress = Math.min((now - startTime) / duration, 1)
+    const eased = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - ((-2 * progress + 2) ** 3) / 2
+
+    window.scrollTo(0, startY + distance * eased)
+
+    if (progress < 1) {
+      scrollAnimationFrame = requestAnimationFrame(step)
+    }
+  }
+
+  scrollAnimationFrame = requestAnimationFrame(step)
+}
 
 const createLogoMarker = () => {
   const el = document.createElement('div')
@@ -93,19 +132,28 @@ const createLogoMarker = () => {
   return el
 }
 
-const selectLocation = (locationId: string) => {
-  selectedLocation.value = locationId
-
-  const location = locations.find(item => item.id === locationId)
-
-  if (!map || !location) {
+const applyMapSelection = (locationId: string) => {
+  if (!map || !mapReady) {
     return
   }
 
-  map.flyTo({ center: location.coordinates, zoom: 13, speed: 0.9, curve: 1.2 })
+  const location = locations.find(item => item.id === locationId)
+
+  if (!location) {
+    return
+  }
+
+  map.flyTo({ center: location.coordinates, zoom: 13, speed: 0.9, curve: 1.2, essential: true })
 
   locationPopups.forEach(locationPopup => locationPopup.remove())
   locationPopups.get(location.id)?.addTo(map)
+}
+
+const selectLocation = (locationId: string) => {
+  selectedLocation.value = locationId
+
+  smoothScrollToMap()
+  applyMapSelection(locationId)
 }
 
 const setLayerPaintIfExists = (
@@ -131,7 +179,7 @@ const setLayerLayoutIfExists = (
 }
 
 const jumpToFeaturedLocation = () => {
-  mapContainer.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  smoothScrollToMap()
 
   if (!map || !featuredLocation) {
     return
@@ -190,21 +238,31 @@ onMounted(async () => {
     }
 
     map.on('load', () => {
+      mapReady = true
       map?.resize()
-
-      if (featuredLocation) {
-        locationPopups.get(featuredLocation.id)?.addTo(map!)
-      }
 
       if (!map) {
         return
       }
 
-      const locationBounds = new mapboxgl.LngLatBounds()
-      for (const location of locations) {
-        locationBounds.extend(location.coordinates)
+      // If the user picked a location before the map finished loading, honor that
+      // selection now instead of resetting the camera to the default bounds.
+      const hasPendingSelection = selectedLocation.value !== '' && selectedLocation.value !== featuredLocation?.id
+
+      if (hasPendingSelection) {
+        applyMapSelection(selectedLocation.value)
       }
-      map.fitBounds(locationBounds, { padding: 80, maxZoom: 11.5 })
+      else {
+        if (featuredLocation) {
+          locationPopups.get(featuredLocation.id)?.addTo(map)
+        }
+
+        const locationBounds = new mapboxgl.LngLatBounds()
+        for (const location of locations) {
+          locationBounds.extend(location.coordinates)
+        }
+        map.fitBounds(locationBounds, { padding: 80, maxZoom: 11.5 })
+      }
 
       // Slightly lighter dark-map palette for better readability.
       setLayerPaintIfExists(map, 'background', 'background-color', '#12131a')
@@ -321,13 +379,16 @@ onMounted(async () => {
       }
     })
   }
-  catch {
+  catch (error) {
+    console.error('Failed to initialize map', error)
     mapLoadError.value = 'Unable to load map right now. Please try again in a moment.'
   }
 })
 
 onBeforeUnmount(() => {
+  cancelAnimationFrame(scrollAnimationFrame)
   locationPopups.clear()
+  mapReady = false
 
   if (map) {
     map.remove()
@@ -408,11 +469,11 @@ onBeforeUnmount(() => {
             :key="location.id"
             class="cursor-pointer border bg-[#15131a] p-5 transition-colors sm:p-6 hover:bg-[#191720]"
             :class="selectedLocation === location.id ? 'border-[#d68e49] shadow-[0_0_24px_rgba(214,142,73,0.12)]' : 'border-[#28232f]'"
+            @click="selectLocation(location.id)"
           >
             <button
               type="button"
               class="w-full cursor-pointer text-left"
-              @click="selectLocation(location.id)"
             >
               <p
                 v-if="location.featured"
@@ -435,6 +496,7 @@ onBeforeUnmount(() => {
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex w-fit items-center gap-1 rounded-sm px-1.5 py-0.5 -mx-1.5 text-sm font-semibold text-[#d68e49] underline underline-offset-4 transition-colors duration-300 hover:bg-[#d68e49]/10 hover:text-[#f7efe4]"
+                @click.stop
               >
                 Visit Location Website
                 <UIcon
@@ -447,6 +509,7 @@ onBeforeUnmount(() => {
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex w-fit items-center gap-1 rounded-sm px-1.5 py-0.5 -mx-1.5 text-sm font-semibold text-[#d68e49] underline underline-offset-4 transition-colors duration-300 hover:bg-[#d68e49]/10 hover:text-[#f7efe4]"
+                @click.stop
               >
                 Get Directions
                 <UIcon
