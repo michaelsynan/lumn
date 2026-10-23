@@ -5,6 +5,7 @@
     <HomeGood />
     <!-- <ProductSelection /> -->
     <!-- <LumnDifference /> -->
+    <HomePizza />
     <LumnDifference2 />
     <AuroraProtocol />
   </div>
