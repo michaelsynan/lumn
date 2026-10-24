@@ -3,9 +3,7 @@
     <video
       src="/pizza-lumn.mp4"
       class="h-auto max-h-[70vh] w-full max-w-4xl object-contain"
-      autoplay
-      loop
-      muted
+      controls
       playsinline
     />
   </section>
