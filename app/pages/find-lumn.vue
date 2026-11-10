@@ -24,8 +24,7 @@ const locations: StoreLocation[] = [
     name: 'Electric City Roasting Company',
     address: '101 N. Blakely St., Dunmore, PA 18512',
     coordinates: [-75.6322, 41.4197],
-    website: 'https://electriccityroasting.com/',
-    featured: true
+    website: 'https://electriccityroasting.com/'
   },
   {
     id: 'ritters-farm',
@@ -57,6 +56,14 @@ const locations: StoreLocation[] = [
     name: 'Piero\'s Pizza',
     address: '590 Hamlin Hwy, Lake Ariel, PA 18436',
     coordinates: [-75.4050307, 41.4039342]
+  },
+  {
+    id: 'rosarios-pizzeria',
+    name: 'Rosario\'s Pizzeria',
+    address: '100 Viewmont Dr Mall #606, Scranton, PA 18508',
+    coordinates: [-75.7008, 41.4759],
+    website: 'https://order.online/store/rosarios-pizzateria-inc-29635090',
+    featured: true
   },
   {
     id: 'jorobs-naturals',
