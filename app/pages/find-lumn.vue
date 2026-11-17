@@ -66,6 +66,13 @@ const locations: StoreLocation[] = [
     featured: true
   },
   {
+    id: 'rosarios-pizzeria-clarks-summit',
+    name: 'Rosario\'s Pizzeria',
+    address: '100 Highland Ave, Clarks Summit, PA 18411',
+    coordinates: [-75.7045733, 41.495683],
+    website: 'https://www.myrosarios.com/'
+  },
+  {
     id: 'jorobs-naturals',
     name: 'JoRob\'s Naturals',
     address: '1130 Texas Palmyra Highway, Honesdale, PA 18431',
